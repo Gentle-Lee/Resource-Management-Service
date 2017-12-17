@@ -11,10 +11,10 @@ var connection = mysql.createConnection({
 });
 
 app.get('/listUsers', function (req, res) {
-	
+
 	connection.connect();
 	 
-	var  sql = 'SELECT * FROM websites';
+	var  sql = 'SELECT * FROM test';
 	//查
 	connection.query(sql,function (err, result) {
 	        if(err){
