@@ -1,12 +1,29 @@
-const https = require('https');
-const fs = require('fs');
+var app = require('express')();
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('fixtures/2_api.gentleleetommy.cn.key', 'utf8');
+var certificate = fs.readFileSync('fixtures/1_api.gentleleetommy.cn_bundle.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
-const options = {
-  pfx: fs.readFileSync('fixtures/api.gentleleetommy.cn.pfx'),
-  passphrase: 'sample'
-};
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+var PORT = 18080;
+var SSLPORT = 18081;
 
-https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end('hello world\n');
-}).listen(8000);
+httpServer.listen(PORT, function() {
+    console.log('HTTP Server is running on: http://localhost:%s', PORT);
+});
+httpsServer.listen(SSLPORT, function() {
+    console.log('HTTPS Server is running on: https://localhost:%s', SSLPORT);
+});
+
+// Welcome
+app.get('/', function(req, res) {
+    if(req.protocol === 'https') {
+        res.status(200).send('Welcome to Safety Land!');
+    }
+    else {
+        res.status(200).send('Welcome!');
+    }
+});
