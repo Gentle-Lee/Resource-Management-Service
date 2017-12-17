@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 });
 
 app.get('/listUsers', function (req, res) {
-
+	res.writeHead(200, {"Content-Type": "text/html"});
 	connection.connect();
 	 
 	var  sql = 'SELECT * FROM test';
@@ -20,10 +20,13 @@ app.get('/listUsers', function (req, res) {
 	        if(err){
 	          console.log('[SELECT ERROR] - ',err.message);
 	          return;
-	        }
+					}
+	
+					res.write(JSON.stringify(result)); 
+					res.end();
 	 
 	       console.log('--------------------------SELECT----------------------------');
-	       console.log(result);
+	       console.log(res);
 	       console.log('------------------------------------------------------------\n\n');  
 	});
 	 
