@@ -12,28 +12,28 @@ var connection = mysql.createConnection({
 		database: 'Project', 
 }); 
 
-app.get('/listUsers', function (req, res) {
-	res.writeHead(200, {"Content-Type": "text/html"});
-	connection.connect();
-	 
-	var  sql = 'SELECT * FROM test';
-	//查
-	connection.query(sql,function (err, result) {
-	        if(err){
-	          console.log('[SELECT ERROR] - ',err.message);
-	          return;
-					}
-	
-					res.write(JSON.stringify(result)); 
-					res.end();
-	 
-	       console.log('--------------------------SELECT----------------------------');
-	       console.log(res);
-	       console.log('------------------------------------------------------------\n\n');  
-	});
-	 
-	connection.end();
-})
+app.use('/listUsers', (request, response, next) => {
+    response.writeHead(200, {"Content-Type": "text/html"});
+        connection.connect();
+
+        var  sql = 'SELECT * FROM team';
+        //查
+        connection.query(sql,function (err, result) {
+                if(err){
+                  console.log('[SELECT ERROR] - ',err.message);
+                  return;
+                        }
+
+                        response.write(JSON.stringify(result));
+                        response.end();
+
+               console.log('--------------------------SELECT----------------------------');
+               console.log(res);
+               console.log('------------------------------------------------------------\n\n');
+        });
+
+        connection.end();
+});
 
 var server = app.listen(8081, function () {
 
