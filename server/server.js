@@ -16,7 +16,7 @@ app.use('/listUsers', (request, response, next) => {
     response.writeHead(200, {"Content-Type": "text/html"});
         connection.connect();
 
-        var  sql = 'SELECT * FROM team';
+        var  sql = 'SELECT * FROM test';
         //查
         connection.query(sql,function (err, result) {
                 if(err){
