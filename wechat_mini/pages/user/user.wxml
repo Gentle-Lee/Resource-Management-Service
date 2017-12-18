@@ -1,0 +1,26 @@
+<view class='container'>
+  <view class='header'>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <view class='user-info' wx:else bindtap='JumpToAuthorization'>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <view class='userinfo-name'>
+         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <text class="userinfo-nickname">Tom</text>
+      </view>
+      <text class='user-authorization'>未认证</text>
+    </view>
+  </view>
+  <view  class='history'>
+    <image class='history-image' src='/res/icon_history.png'></image>
+    <text class='history-text'>历史记录</text>
+  </view>
+  <view  class='instruction'>
+    <image class='instruction-image' src='/res/icon_instruction.png'></image>
+    <text class='instruction-text'>使用须知</text>
+  </view>
+  <view  class='about'>
+    <image class='about-image' src='/res/icon_about.png'></image>
+    <text class='about-text'>关于</text>
+  </view>
+  
+</view>

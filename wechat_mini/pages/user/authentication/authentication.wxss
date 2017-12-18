@@ -1,0 +1,81 @@
+/* pages/user/authentication/authentication.wxss */
+Page {
+  background: #F5F5F5;
+}
+.container{
+  width: 100%;
+  height: 100%;
+  padding:0;
+  display: block;
+}
+.user-info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1rpx #F5F5F5 solid;
+  padding-left: 50rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  background: white;
+  margin-bottom: 50rpx;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.userinfo-name{
+  display: inline-block;
+}
+
+.userinfo-nickname{
+  display: block;
+}
+
+.user-authorization{
+  margin-left: 200rpx;
+  border: 1rpx #aaa solid;
+  border-radius: 10%;
+  padding: 5rpx;
+  color: #aaa;
+}
+
+.form{
+  width: 100%;
+  background: white;
+}
+.form-item{
+  display: flex;
+  align-items: center;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx #aaa solid;
+}
+
+.form-label,.form-radio{
+  margin-left: 20rpx;
+}
+.item-radio{
+  font-size: 32rpx;
+  size: 32rpx;
+  margin-left: 10rpx;
+}
+.form-input{
+  margin-left: 30rpx;
+  font-size: 32rpx;
+}
+
+.form-image{
+  width: 64rpx;
+  height: 64rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.submit-button{
+  margin-top: 50rpx;
+  background-color: #29B6F6;
+  color: white;
+}

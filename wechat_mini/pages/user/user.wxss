@@ -1,0 +1,57 @@
+.container{
+  width: 100%;
+  height: 100%;
+  padding:0;
+  display: block;
+}
+.user-info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1rpx #F5F5F5 solid;
+  padding-left: 50rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.userinfo-name{
+  display: inline-block;
+}
+
+.userinfo-nickname{
+  display: block;
+}
+
+.user-authorization{
+  margin-left: 200rpx;
+  border: 1rpx #aaa solid;
+  border-radius: 10%;
+  padding: 5rpx;
+  color: #aaa;
+}
+
+.history,.instruction,.about{
+  display: flex;
+  margin-top: 60rpx;
+  align-items: center;
+  border: 1rpx #F5F5F5 solid;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+
+.history-image,.instruction-image,.about-image{
+  width: 64rpx;
+  height: 64rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.history-text,.instruction-text,.about-text{
+  margin-left: 50rpx;
+}
