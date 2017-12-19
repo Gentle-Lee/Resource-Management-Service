@@ -1,52 +1,55 @@
 <!--pages/user/authentication/authentication.wxml-->
 <view class='container'>
-  <view class='header'>
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <view class='user-info' wx:else >
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <view class='userinfo-name'>
-         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        <text class="userinfo-nickname">Tom</text>
+  <form bindsubmit='formSubmit'>
+    <view class='header'>
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <view class='user-info' wx:else >
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <view class='userinfo-name'>
+          <text class="userinfo-nickname" name ='wechatname'>{{userInfo.nickName}}</text>
+        </view>
+        <text class='user-authorization'>未认证</text>
       </view>
-      <text class='user-authorization'>未认证</text>
     </view>
-  </view>
-
-  <view class='form'>
-    <view class='form-item'>
-      <image class='form-image' src='/res/icon_name.png'></image>
-      <text class='form-label'> 姓名</text>
-      <input class='form-input' name='user-realname' placeholder='请输入真实姓名'></input>
+  
+    <view class='form'>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_name.png'></image>
+        <text class='form-label'> 姓名</text>
+        <input class='form-input' name='name' placeholder='请输入真实姓名'></input>
+      </view>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_gender.png'></image>
+        <text class='form-label'> 性别</text>
+        <radio-group class="radio-group" bindchange="radioChange">
+            <label class="item-radio" wx:for="{{items}}">
+              <radio value="{{item.name}}" checked="{{item.checked}}" name="gender"/>{{item.value}}
+            </label>
+          </radio-group>
+      </view>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_phone.png'></image>
+        <text class='form-label'> 手机</text>
+        <input class='form-input' name='phone' placeholder='请输入手机'></input>
+      </view>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_email.png'></image>
+        <text class='form-label'> 邮箱</text>
+        <input class='form-input' name='email' placeholder='请输入邮箱'></input>
+      </view>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_team.png'></image>
+        <text class='form-label'> 组织</text>
+        <picker range="{{array}}" value="{{index}}" bindchange="bindPickerChange" name="team">
+            <text class='form-label'>{{array[index]}}</text>
+        </picker>
+      </view>
+      <view class='form-item'>
+        <image class='form-image' src='/res/icon_code.png'></image>
+        <text class='form-label'> 密钥</text>
+        <input class='form-input' name='code' placeholder='请输入密钥'></input>
+      </view>
     </view>
-    <view class='form-item'>
-      <image class='form-image' src='/res/icon_gender.png'></image>
-      <text class='form-label'> 性别</text>
-      <radio-group class="radio-group" bindchange="radioChange">
-          <label class="item-radio" wx:for="{{items}}">
-            <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
-          </label>
-        </radio-group>
-    </view>
-    <view class='form-item'>
-      <image class='form-image' src='/res/icon_phone.png'></image>
-      <text class='form-label'> 手机</text>
-      <input class='form-input' name='user-realname' placeholder='请输入手机'></input>
-    </view>
-    <view class='form-item'>
-      <image class='form-image' src='/res/icon_email.png'></image>
-      <text class='form-label'> 邮箱</text>
-      <input class='form-input' name='user-realname' placeholder='请输入邮箱'></input>
-    </view>
-    <view class='form-item'>
-      <image class='form-image' src='/res/icon_team.png'></image>
-      <text class='form-label'> 组织</text>
-      <input class='form-input' name='user-realname' placeholder='请输入组织'></input>
-    </view>
-     <view class='form-item'>
-      <image class='form-image' src='/res/icon_code.png'></image>
-      <text class='form-label'> 密钥</text>
-      <input class='form-input' name='user-realname' placeholder='请输入密钥'></input>
-    </view>
-  </view>
-  <button class='submit-button' bindtap='submit'> 认证 </button>
+    <button class='submit-button' form-type='submit'> 认证 </button>
+  </form>
 </view>
