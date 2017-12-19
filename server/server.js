@@ -61,7 +61,7 @@ app.use('/listTeam', (request, response, next) => {
       connection.end();
 });
 
-app.use('/addUser', (request, response, next) => {
+app.post('/addUser', (request, response, next) => {
       var connection = mysql.createConnection({
            host     : 'localhost',
            user     : 'root',
@@ -70,10 +70,8 @@ app.use('/addUser', (request, response, next) => {
            database : 'Project'
       });
 
-      console.log(request);
+      console.log(request.query);
 
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.end(JSON.stringify(request),'utf-8');
       // connection.connect();
       
 
