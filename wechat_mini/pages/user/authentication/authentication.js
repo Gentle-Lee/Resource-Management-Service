@@ -94,7 +94,7 @@ Page({
     } else {
       wx.request({
         url: 'https://api.gentleleetommy.cn/addUser',
-        data: { wechatname:e.detail.value.wechatname,name: e.detail.value.name, phone: e.detail.value.phone, gender: e.detail.value.gender, email: e.detail.value.email, team: e.detail.value.team, code: e.detail.value.code },
+        data: { wechatname: app.globalData.userInfo.nickName,name: e.detail.value.name, phone: e.detail.value.phone, gender: e.detail.value.gender, email: e.detail.value.email, team: e.detail.value.team, code: e.detail.value.code },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {
           "Content-Type": "application/x-www-form-urlencoded"

@@ -75,6 +75,17 @@ app.use('/addUser', (request, response, next) => {
 
       console.log(request.body);
 
+      var  sql = 'insert into user(wechatname,name,phone,gender,email,team,code) values ?';
+      var data = JSON.parse(request.body);
+      // Convert the array of objects into an array of arrays.
+      var responseJson = ObjToArray(data.response.docs);
+      
+      // The query object expects an array of objects so you pass in 'responseJson' as is
+      var query = connection.query(sql, responseJson, function(err, result) {
+          if(err) throw err;
+          console.log('data inserted');
+      });
+
       // connection.connect();
       
 

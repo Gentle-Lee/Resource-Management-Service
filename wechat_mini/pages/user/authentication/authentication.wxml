@@ -1,7 +1,7 @@
 <!--pages/user/authentication/authentication.wxml-->
 <view class='container'>
-  <form bindsubmit='formSubmit'>
-    <view class='header'>
+  
+  <view class='header'>
       <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
       <view class='user-info' wx:else >
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
@@ -11,7 +11,7 @@
         <text class='user-authorization'>未认证</text>
       </view>
     </view>
-  
+  <form bindsubmit='formSubmit'>
     <view class='form'>
       <view class='form-item'>
         <image class='form-image' src='/res/icon_name.png'></image>
