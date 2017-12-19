@@ -1,9 +1,12 @@
 // 引用 express 来支持 HTTP Server 的实现
 const express = require('express');
+const bodyParser = require('body-parser');
 var mysql = require('mysql');
 
 // 创建一个 express 实例
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/listUsers', (request, response, next) => {
       var connection = mysql.createConnection({
@@ -61,7 +64,7 @@ app.use('/listTeam', (request, response, next) => {
       connection.end();
 });
 
-app.post('/addUser', (request, response, next) => {
+app.use('/addUser', (request, response, next) => {
       var connection = mysql.createConnection({
            host     : 'localhost',
            user     : 'root',
@@ -70,7 +73,7 @@ app.post('/addUser', (request, response, next) => {
            database : 'Project'
       });
 
-      console.log(request.query);
+      console.log(request.body);
 
       // connection.connect();
       
