@@ -9,7 +9,9 @@ Page({
     ],
     team:[],
     index:0,
+    authorization:"",
     userInfo: {},
+    phone :"",
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -20,6 +22,7 @@ Page({
     })
   },
   onLoad: function () {
+    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
