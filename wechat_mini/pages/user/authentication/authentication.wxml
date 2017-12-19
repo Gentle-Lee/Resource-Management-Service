@@ -21,9 +21,9 @@
       <view class='form-item'>
         <image class='form-image' src='/res/icon_gender.png'></image>
         <text class='form-label'> 性别</text>
-        <radio-group class="radio-group" bindchange="radioChange">
-            <label class="item-radio" wx:for="{{items}}">
-              <radio value="{{item.name}}" checked="{{item.checked}}" name="gender"/>{{item.value}}
+        <radio-group class="radio-group" bindchange="radioChange" name="gender"> 
+            <label class="item-radio" wx:for="{{items}}" >
+              <radio value="{{item.name}}"/>{{item.value}}
             </label>
           </radio-group>
       </view>
@@ -40,7 +40,7 @@
       <view class='form-item'>
         <image class='form-image' src='/res/icon_team.png'></image>
         <text class='form-label'> 组织</text>
-        <picker range="{{array}}" value="{{index}}" bindchange="bindPickerChange" name="team">
+        <picker range="{{array}}" value="{{array[index]}}" bindchange="bindPickerChange" name="team">
             <text class='form-label'>{{array[index]}}</text>
         </picker>
       </view>

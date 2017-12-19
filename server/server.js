@@ -70,10 +70,10 @@ app.use('/addUser', (request, response, next) => {
            database : 'Project'
       });
 
-      console.log(request.query);
+      console.log(request);
 
       response.writeHead(200, {"Content-Type": "text/html"});
-      response.end(JSON.stringify(request.query),'utf-8');
+      response.end(JSON.stringify(request),'utf-8');
       // connection.connect();
       
 

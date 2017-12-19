@@ -93,7 +93,7 @@ Page({
       }, 2000)
     } else {
       wx.request({
-        url: 'http://127.0.0.1/miniApp/form.php',
+        url: 'https://api.gentleleetommy.cn/addUser',
         data: { wechatname:e.detail.value.wechatname,name: e.detail.value.name, phone: e.detail.value.phone, gender: e.detail.value.gender, email: e.detail.value.email, team: e.detail.value.team, code: e.detail.value.code },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {
