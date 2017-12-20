@@ -79,6 +79,8 @@ app.use('/addUser', (request, response, next) => {
       var data = JSON.parse(request.body);
       // Convert the array of objects into an array of arrays.
       var responseJson = ObjToArray(data.response.docs);
+
+      console.log(responseJson)
       
       // The query object expects an array of objects so you pass in 'responseJson' as is
       var query = connection.query(sql, responseJson, function(err, result) {

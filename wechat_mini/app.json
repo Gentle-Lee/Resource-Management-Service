@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/user/user",
     "pages/index/index",
+    "pages/goods/goods",
+    "pages/user/user",
     "pages/logs/logs",
     "pages/user/authentication/authentication"
   ],
@@ -17,7 +18,7 @@
       {
         "selectedIconPath": "res/icon_resource_blue.png",
         "iconPath": "res/icon_resource_default.png",
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/goods/goods",
         "text": "物资"
       },
       {

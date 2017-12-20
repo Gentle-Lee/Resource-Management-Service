@@ -3,43 +3,15 @@ Page({
   data: {
     datas: [
       {
-        imgurl:'../../res/icon_place_default.png',
-        rname:'104',
-        capacity:50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
+        imgurl: '../../res/icon_resource_default.png',
+        gname: '小推车',
+        totalnum: 50,
+        stock:5
       },
       
+
     ],
-    modalHidden: true,
+    adminModalHidden: true,
     modalText: "",
   },
 
@@ -78,21 +50,21 @@ Page({
       modalText: "点击了第" + prama.currentTarget.id + "位 姓名：" + menuItem.name
     })
   },
-  modalConfirm: function (e) {
+  adminConfirm: function (e) {
     this.setData({
-      modalHidden: true
+      adminModalHidden: true
     })
     console.log('confirm');
   },
-  modalCancel: function (e) {
+  adminCancel: function (e) {
     this.setData({
-      modalHidden: true
+      adminModalHidden: true
     })
     console.log('cancel');
   },
-  modalShow: function (e) {
+  adminShow: function (e) {
     this.setData({
-      modalHidden: false
+      adminModalHidden: false
     })
     console.log('show');
   }

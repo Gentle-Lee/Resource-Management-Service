@@ -1,13 +1,47 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<modal title="修改" confirm-text="confirm" cancel-text="cancel" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
+ <form>
+  <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 人数:</text>
+        <input value=''class='form-input' name='name' placeholder='请输入容纳人数'></input>
+        <text class='form-label'> 人</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 面积:</text>
+        <input class='form-input' name='name' placeholder='请输入场地面积'></input>
+        <text class='form-label'> m²</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 描述:</text>
+        <input class='form-input' name='name' placeholder='请输入场地描述'></input>
+      </view>
+   </view>
+ </form>
+</modal>
+<view class='header'>
+  <view class='search_container'>
+    <input name='search_content' placeholder='请输入场地名称' class='search_input'></input>
+    <text class='searchbtn'>搜索</text>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+</view>
+  <view class="listview">
+    <block wx:for-items="{{datas}}" wx:for-item="item">
+      <view id="{{index}}" class="cellview"  >
+        <image class="cellimage" mode="scaleToFill" src="{{item.imgurl}}"/>
+        <view class="celllabel">
+          <text class="celltext" >{{item.rname}}</text>
+          <view class='celldetail'>
+             <text class="cellcapacity">人数:{{item.capacity}}</text>
+             <text class="cellspace">空间:{{item.capacity}}</text>
+          </view>
+        </view>
+        <view class='cellbutton'>
+            <text class='modifybtn' bindtap='modalShow'>修改</text>
+            <text class='applybtn'>申请</text>
+          </view>
+      </view>
+    </block>
   </view>
 </view>
