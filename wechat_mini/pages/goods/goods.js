@@ -12,7 +12,8 @@ Page({
 
     ],
     adminModalHidden: true,
-    modalText: "",
+    addHidden:true,
+    applyHidden:true,
   },
 
   //view加载
@@ -67,6 +68,66 @@ Page({
       adminModalHidden: false
     })
     console.log('show');
-  }
+  },
+  addConfirm: function (e) {
+    this.setData({
+      addHidden: true
+    })
+    console.log('confirm');
+  },
+  addCancel: function (e) {
+    this.setData({
+      addHidden: true
+    })
+    console.log('cancel');
+  },
+  addShow: function (e) {
+    this.setData({
+      addHidden: false
+    })
+    console.log('show');
+  },
+  applyConfirm: function (e) {
+    this.setData({
+      applyHidden: true
+    })
+    console.log('confirm');
+  },
+  applyCancel: function (e) {
+    this.setData({
+      applyHidden: true
+    })
+    console.log('cancel');
+  },
+  applyShow: function (e) {
+    this.setData({
+      applyHidden: false
+    })
+    console.log('show');
+  },
+  bindStartDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      startdate: e.detail.value
+    })
+  },
+  bindStartTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      starttime: e.detail.value
+    })
+  },
+  bindEndDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      enddate: e.detail.value
+    })
+  },
+  bindEndTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      endtime: e.detail.value
+    })
+  },
 
 })

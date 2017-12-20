@@ -40,6 +40,7 @@ Page({
       
     ],
     modalHidden: true,
+    addHidden:true,
     modalText: "",
   },
 
@@ -93,6 +94,24 @@ Page({
   modalShow: function (e) {
     this.setData({
       modalHidden: false
+    })
+    console.log('show');
+  },
+   addConfirm: function (e) {
+    this.setData({
+      addHidden: true
+    })
+    console.log('confirm');
+  },
+  addCancel: function (e) {
+    this.setData({
+      addHidden: true
+    })
+    console.log('cancel');
+  },
+  addShow: function (e) {
+    this.setData({
+      addHidden: false
     })
     console.log('show');
   }

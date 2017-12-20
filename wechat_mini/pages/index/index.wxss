@@ -44,7 +44,8 @@
 }
 
 .cellbutton{
-  margin-left: 100rpx;
+  position: absolute;
+  right: 0;
 }
 
 .applybtn,.modifybtn{
@@ -58,11 +59,12 @@
 }
 
 .applybtn{
-    margin-left: 20rpx;
     background-color: #1296db;
+    margin-right: 50rpx;
 }
 .modifybtn{
    background-color: red;
+   margin-right: 20rpx;
 }
 
 .header{
@@ -106,4 +108,20 @@
 }
 .form-description{
   text-align: center;
+}
+
+.addbtn{
+  right: 0;
+  position: fixed;
+  bottom: 0;
+  margin-right: 50px;
+  margin-bottom: 50rpx;
+}
+.add_image{
+  min-width:80rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.deletebtn{
 }
