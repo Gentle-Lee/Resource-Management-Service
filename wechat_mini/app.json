@@ -1,10 +1,9 @@
 {
   "pages":[
-    
+    "pages/user/user",
     "pages/index/index",
     "pages/index/placeapplication/placeapplication",
     "pages/goods/goods",
-    "pages/user/user",
     "pages/logs/logs",
     "pages/user/application/application",
     "pages/user/management/management",
@@ -14,6 +13,12 @@
   "tabBar": {
     "selectedColor" : "#1296db",
     "list": [
+      {
+        "selectedIconPath": "res/icon_user_blue.png",
+        "iconPath": "res/icon_user_default.png",
+        "pagePath": "pages/user/user",
+        "text": "我的"
+      },
       {
         "pagePath": "pages/index/index",
         "selectedIconPath": "res/icon_place_blue.png",
@@ -25,12 +30,6 @@
         "iconPath": "res/icon_resource_default.png",
         "pagePath": "pages/goods/goods",
         "text": "物资"
-      },
-      {
-        "selectedIconPath": "res/icon_user_blue.png",
-        "iconPath": "res/icon_user_default.png",
-        "pagePath": "pages/user/user",
-        "text": "我的"
       }
     ]
   },

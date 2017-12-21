@@ -18,9 +18,6 @@
           </view>
           <view class='usage'>{{item.usage}}</view>
         </view>
-        <view class='card_right'>
-          <view class='status'>{{item.status}}</view>
-        </view>
       </view>
     </block>
 

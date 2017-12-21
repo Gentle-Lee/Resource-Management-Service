@@ -16,6 +16,9 @@ page {
   flex-direction: row;
 }
 
+.title,.num{
+  font-size: 32rpx;
+}
 .default {
   line-height: 100rpx;
   text-align: center;
@@ -84,7 +87,6 @@ page {
 }
 .num_label{
   margin-left: 20rpx;
-  margin-top: 5rpx;
 }
 .hidden {
   display: none;

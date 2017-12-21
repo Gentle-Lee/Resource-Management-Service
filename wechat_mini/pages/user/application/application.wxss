@@ -82,9 +82,11 @@ page {
   font-size: 32rpx;
   color: #1296db;
 }
+.title,.num{
+  font-size: 32rpx;
+}
 .num_label{
   margin-left: 20rpx;
-  margin-top: 5rpx;
 }
 .hidden {
   display: none;

@@ -29,5 +29,5 @@
     <image class='list_item-image' src='/res/icon_about.png'></image>
     <text class='list_item-text'>关于</text>
   </view>
-  
+  <view class='bottom'></view>
 </view>

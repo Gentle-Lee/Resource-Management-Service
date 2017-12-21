@@ -1,19 +1,27 @@
 const app = getApp()
-
+const phone = "";
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
   onLoad: function () {
+    wx.getStorage({
+      key: 'phone',
+      success: function (res) {
+        phone: res.data
+        console.log(res.data)
+      },
+      fail:function(res){
+        wx.showToast({
+          title: '请前往认证',
+          image: "/res/icon_warn.png",
+          duration: 2000
+        })
+      }
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

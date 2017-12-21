@@ -55,3 +55,6 @@
 .list_item-text{
   margin-left: 50rpx;
 }
+.bottom{
+  margin-bottom: 50rpx;
+}

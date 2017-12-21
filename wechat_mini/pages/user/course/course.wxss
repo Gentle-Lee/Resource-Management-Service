@@ -42,6 +42,9 @@
   font-size: 32rpx;
   color: #aaa;
 }
+.title{
+  font-size: 32rpx;
+}
 .usage{
   margin-top: 10rpx;
   padding-right: 40rpx;
