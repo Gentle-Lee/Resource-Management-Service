@@ -3,11 +3,13 @@
   <modal title="申请" confirm-text="确认" cancel-text="取消" hidden="{{applyHidden}}" bindconfirm="applyConfirm" bindcancel="applyCancel">
     <form>
       <view class='form'>
-        <view class='form-item'>
-          <text class='form-label'> 库存:16</text>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 总数：30个</text>
+        <view class='info'>
+          <view class='form-item'>
+            <text class='form-label'> 库存:16</text>
+          </view>
+          <view class='form-item total_num'>
+            <text class='form-label'> 总数：30个</text>
+          </view>
         </view>
         <view class='form-item'>
           <text class='form-label'> 数量:</text>

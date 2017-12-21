@@ -1,11 +1,44 @@
 <!--index.wxml-->
 <view class="container">
+  <view class='header'>
+    <view class='search_container'>
+      <input name='search_content' placeholder='请输入场地名称' class='search_input'></input>
+      <text class='searchbtn'>搜索</text>
+    </view>
+  </view>
+  <view class="listview">
+    <block wx:for-items="{{datas}}" wx:for-item="item">
+      <view id="{{index}}" class="cellview">
+        <image class="cellimage" mode="scaleToFill" src="{{item.imgurl}}" />
+        <view class="celllabel">
+          <text class="celltext">{{item.rname}}</text>
+          <view class='celldetail'>
+            <text class="cellcapacity">人数:{{item.capacity}}</text>
+            <text class="cellspace">空间:{{item.capacity}}</text>
+          </view>
+        </view>
+        <view class='cellbutton'>
+          <block>
+            <text class='modifybtn' bindtap='modalShow'>修改</text>
+          </block>
+          <text class='applybtn' bindtap='applyShow'>申请</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <block>
+    <view class='addbtn'>
+      <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
+    </view>
+  </block>
+</view>
+
 <modal title="修改" confirm-text="确认" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
- <form>
-  <view class='form'>
+  <form>
+    <view class='form'>
       <view class='form-item'>
         <text class='form-label'> 人数:</text>
-        <input value=''class='form-input' name='name' placeholder='请输入容纳人数'></input>
+        <input value='' class='form-input' name='name' placeholder='请输入容纳人数'></input>
         <text class='form-label'> 人</text>
       </view>
       <view class='form-item'>
@@ -18,19 +51,19 @@
         <input class='form-input' name='name' placeholder='请输入场地描述'></input>
       </view>
       <button type='warn' class='deletebtn'>删除</button>
-   </view>
- </form>
+    </view>
+  </form>
 </modal>
 <modal title="添加场地信息" confirm-text="确认" cancel-text="取消" hidden="{{addHidden}}" bindconfirm="addConfirm" bindcancel="addCancel">
- <form>
-  <view class='form'>
-     <view class='form-item'>
+  <form>
+    <view class='form'>
+      <view class='form-item'>
         <text class='form-label'> 名称:</text>
-        <input value=''class='form-input' name='name' placeholder='请输入场地名称'></input>
+        <input value='' class='form-input' name='name' placeholder='请输入场地名称'></input>
       </view>
       <view class='form-item'>
         <text class='form-label'> 人数:</text>
-        <input value=''class='form-input' name='name' placeholder='请输入容纳人数'></input>
+        <input value='' class='form-input' name='name' placeholder='请输入容纳人数'></input>
         <text class='form-label'> 人</text>
       </view>
       <view class='form-item'>
@@ -42,38 +75,33 @@
         <text class='form-label'> 描述:</text>
         <input class='form-input' name='name' placeholder='请输入场地描述'></input>
       </view>
-   </view>
- </form>
-</modal>
-<view class='header'>
-  <view class='search_container'>
-    <input name='search_content' placeholder='请输入场地名称' class='search_input'></input>
-    <text class='searchbtn'>搜索</text>
-  </view>
-</view>
-  <view class="listview">
-    <block wx:for-items="{{datas}}" wx:for-item="item">
-      <view id="{{index}}" class="cellview"  >
-        <image class="cellimage" mode="scaleToFill" src="{{item.imgurl}}"/>
-        <view class="celllabel">
-          <text class="celltext" >{{item.rname}}</text>
-          <view class='celldetail'>
-             <text class="cellcapacity">人数:{{item.capacity}}</text>
-             <text class="cellspace">空间:{{item.capacity}}</text>
-          </view>
-        </view>
-        <view class='cellbutton'>
-            <block>
-             <text class='modifybtn' bindtap='modalShow'>修改</text>
-            </block>
-            <text class='applybtn'>申请</text>
-          </view>
-      </view>
-    </block>
-  </view>
-  <block>
-    <view class='addbtn'>
-      <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
     </view>
-  </block>
-</view>
+  </form>
+</modal>
+
+<modal title="申请场地信息" confirm-text="确认" cancel-text="取消" hidden="{{applyHidden}}" bindconfirm="applyConfirm" bindcancel="applyCancel">
+  <form>
+    <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 用途:</text>
+        <input class='form-input' name='name' placeholder='请输入使用用途'></input>
+      </view>
+      <view class="section">
+          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+            <view class="picker">开始日期: {{startdate}}</view>
+          </picker>
+          <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+            <view class="picker">开始时间: {{starttime}}</view>
+          </picker>
+        </view>
+        <view class="section">
+          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+            <view class="picker">结束日期: {{enddate}}</view>
+          </picker>
+          <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+            <view class="picker">结束时间: {{endtime}}</view>
+          </picker>
+        </view>
+    </view>
+  </form>
+</modal>

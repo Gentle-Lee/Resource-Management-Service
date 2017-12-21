@@ -41,6 +41,7 @@ Page({
     ],
     modalHidden: true,
     addHidden:true,
+    applyHidden:true,
     modalText: "",
   },
 
@@ -114,6 +115,48 @@ Page({
       addHidden: false
     })
     console.log('show');
-  }
+  },
+  applyConfirm: function (e) {
+    this.setData({
+      applyHidden: true
+    })
+    console.log('confirm');
+  },
+  applyCancel: function (e) {
+    this.setData({
+      applyHidden: true
+    })
+    console.log('cancel');
+  },
+  applyShow: function (e) {
+    this.setData({
+      applyHidden: false
+    })
+    console.log('show');
+  },
+  bindStartDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      startdate: e.detail.value
+    })
+  },
+  bindStartTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      starttime: e.detail.value
+    })
+  },
+  bindEndDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      enddate: e.detail.value
+    })
+  },
+  bindEndTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      endtime: e.detail.value
+    })
+  },
 
 })

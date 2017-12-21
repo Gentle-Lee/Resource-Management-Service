@@ -123,3 +123,12 @@
 .section{
   margin-top: 10rpx;
 }
+
+.info{
+  display: flex;
+  align-items: center;
+}
+
+.total_num{
+  margin-left: 20rpx;
+}
