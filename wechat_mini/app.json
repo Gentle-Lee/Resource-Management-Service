@@ -1,10 +1,14 @@
 {
   "pages":[
+    
     "pages/index/index",
     "pages/goods/goods",
     "pages/user/user",
     "pages/logs/logs",
-    "pages/user/authentication/authentication"
+    "pages/user/application/application",
+    "pages/user/management/management",
+    "pages/user/authentication/authentication",
+    "pages/user/course/course"
   ],
   "tabBar": {
     "selectedColor" : "#1296db",

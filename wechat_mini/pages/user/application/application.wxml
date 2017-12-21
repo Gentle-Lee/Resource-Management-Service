@@ -1,0 +1,51 @@
+<!--pages/user/application/application.wxml-->
+<view class='container'>
+  <view class="nav bc_white">
+    <view class="{{selected?'red':'default'}}" bindtap="selected">场地</view>
+    <view class="{{selected1?'red':'default'}}" bindtap="selected1">物资</view>
+  </view>
+  <view class="{{selected?'show':'hidden'}}">
+    <block wx:for-items="{{placeData}}" wx:for-item="item">
+      <view id="{{index}}" class='card'>
+        <view class='card_left'>
+          <view class='info'>
+          <view class='card_label'>名称：</view>
+           <view class='title'>{{item.name}}</view>
+          </view>
+          <view class='time'>
+            <view class='starttime'>{{item.starttime}}</view>
+            <view class='endtime'>{{item.endtime}}</view>
+          </view>
+          <view class='usage'>{{item.usage}}</view>
+        </view>
+        <view class='card_right'>
+          <view class='status'>{{item.status}}</view>
+        </view>
+      </view>
+    </block>
+
+  </view>
+  <view class="{{selected1?'show':'hidden'}}">
+  <block wx:for-items="{{resData}}" wx:for-item="item">
+      <view id="{{index}}" class='card'>
+        <view class='card_left'>
+          <view class='info'>
+          <view class='card_label'>名称：</view>
+           <view class='title'>{{item.name}}</view>
+           <view class='card_label num_label'>数量：</view>
+           <view class='num'>{{item.num}}</view>
+          </view>
+          <view class='time'>
+            <view class='starttime'>{{item.starttime}}</view>
+            <view class='endtime'>{{item.endtime}}</view>
+          </view>
+          <view class='usage'>{{item.usage}}</view>
+        </view>
+        <view class='card_right'>
+          <view class='status'>{{item.status}}</view>
+        </view>
+      </view>
+    </block>
+  
+  </view>
+</view>

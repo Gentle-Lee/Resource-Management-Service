@@ -1,0 +1,93 @@
+<!--pages/user/course/course.wxml-->
+<view class='container'>
+  <view class='header'>
+    <view class='addtext' bindtap='addShow'>新建</view>
+  </view>
+  <block wx:for-items="{{placeData}}" wx:for-item="item">
+    <view id="{{index}}" class='card'>
+      <view class='card_left'>
+      <view class='info'>
+        <view class='card_label'>课程编号：</view>
+        <view>{{item.courseid}}</view>
+      </view>
+        <view class='info'>
+          <view class='card_label'>名称：</view>
+          <view class='title'>{{item.name}}</view>
+        </view>
+        <view class='time'>
+          <view class='starttime'>{{item.starttime}}</view>
+          <view class='endtime'>{{item.endtime}}</view>
+        </view>
+      </view>
+      <view class='card_right'>
+        <view class='status' bindtap='modalShow'>编辑</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<modal title="修改" confirm-text="确认" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
+  <form>
+    <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 名称:</text>
+        <input value='' class='form-input' name='name' placeholder='请输入课程名称'></input>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 教室:</text>
+        <input class='form-input' name='name' placeholder='请输入使用场地'></input>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+          <view class="picker">开始日期: {{startdate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+          <view class="picker">开始时间: {{starttime}}</view>
+        </picker>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+          <view class="picker">结束日期: {{enddate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+          <view class="picker">结束时间: {{endtime}}</view>
+        </picker>
+      </view>
+      <button type='warn' class='deletebtn'>删除</button>
+    </view>
+  </form>
+</modal>
+<modal title="添加课程信息" confirm-text="确认" cancel-text="取消" hidden="{{addHidden}}" bindconfirm="addConfirm" bindcancel="addCancel">
+  <form>
+    <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 编号:</text>
+        <input value='' class='form-input' name='name' placeholder='请输入课程编号'></input>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 名称:</text>
+        <input value='' class='form-input' name='name' placeholder='请输入课程名称'></input>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 教室:</text>
+        <input class='form-input' name='name' placeholder='请输入使用场地'></input>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+          <view class="picker">开始日期: {{startdate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+          <view class="picker">开始时间: {{starttime}}</view>
+        </picker>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+          <view class="picker">结束日期: {{enddate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+          <view class="picker">结束时间: {{endtime}}</view>
+        </picker>
+      </view>
+    </view>
+  </form>
+</modal>

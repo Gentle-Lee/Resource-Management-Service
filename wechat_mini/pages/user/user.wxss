@@ -36,7 +36,7 @@
   color: #aaa;
 }
 
-.history,.instruction,.about{
+.list_item{
   display: flex;
   margin-top: 60rpx;
   align-items: center;
@@ -45,13 +45,13 @@
   padding-bottom: 10rpx;
 }
 
-.history-image,.instruction-image,.about-image{
+.list_item-image{
   width: 64rpx;
   height: 64rpx;
   margin: 20rpx;
-  border-radius: 50%;
+  border-radius: 10%;
 }
 
-.history-text,.instruction-text,.about-text{
+.list_item-text{
   margin-left: 50rpx;
 }

@@ -54,5 +54,20 @@ Page({
     wx.navigateTo({
       url: "authentication/authentication",
     })
+  },
+  JumpToApplication: function () {
+    wx.navigateTo({
+      url: "application/application",
+    })
+  },
+  JumpToManagement: function () {
+    wx.navigateTo({
+      url: "management/management",
+    })
+  },
+  JumpToCourse: function () {
+    wx.navigateTo({
+      url: "course/course",
+    })
   }
 })
