@@ -158,5 +158,10 @@ Page({
       endtime: e.detail.value
     })
   },
+  JumpToPlaceApplication: function () {
+    wx.navigateTo({
+      url: "placeapplication/placeapplication",
+    })
+  }
 
 })

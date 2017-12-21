@@ -2,6 +2,7 @@
   "pages":[
     
     "pages/index/index",
+    "pages/index/placeapplication/placeapplication",
     "pages/goods/goods",
     "pages/user/user",
     "pages/logs/logs",

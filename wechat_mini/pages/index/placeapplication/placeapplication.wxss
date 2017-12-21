@@ -1,0 +1,82 @@
+/* pages/index/placeapplication/placeapplication.wxss */
+.container{
+  display: block;
+  padding: 0rpx;
+}
+.flex-item {
+  width: 95rpx;
+  height: 100px;
+}
+
+.kcb-item {
+  position: absolute;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.smalltext {
+  font-size: 6pt;
+  color: #fff;
+  padding-left: 2px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  margin-left: 35rpx;
+  background-color: #1296db;
+  color: white;
+}
+
+.top-text {
+  width: 100rpx;
+  height: 35rpx;
+  font-size: 9pt;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.scroll {
+  display: block;
+  height: 700rpx;
+  z-index: 101;
+
+}
+
+.left {
+  width: 35rpx;
+  height: 50rpx;
+  font-size: 9pt;
+  color: white;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.applyform{
+  margin:20rpx 20rpx 10rpx 20rpx;
+  padding: 10rpx 20rpx 20rpx 20rpx;
+  border: 1rpx #aaa solid;
+  border-radius: 20rpx;
+}
+.submitbtn{
+  background-color: #1296db;
+  color: white;
+  margin-top: 20rpx;
+}
+
+.form-item{
+  display: flex;
+  justify-content:space-between;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.form-input{
+  margin-left: 20rpx;
+}
+.rname{
+  width:400rpx;
+}

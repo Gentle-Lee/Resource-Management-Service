@@ -68,9 +68,6 @@
   padding-top: 20rpx;
   padding-bottom: 20rpx;
 }
-.form-lable{
-  color: black;
-}
 .form-input{
   margin-left: 20rpx;
 }

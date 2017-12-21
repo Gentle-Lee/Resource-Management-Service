@@ -1,0 +1,61 @@
+<!--pages/index/placeapplication/placeapplication.wxml-->
+<view class='container'>
+  <view class='timetable'>
+    <view class="top">
+      <view wx:for="{{['一','二','三','四','五','六','日']}}" class="top-text">周{{item}}</view>
+    </view>
+    <scroll-view scroll-y="true" class="scroll">
+      <view style="width:730rpx;display:flex;">
+        <view style="background-color:#1296db;color:#1296db;">
+          <view wx:for="{{[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}" class="left">
+            {{item}}
+          </view>
+        </view>
+        <view wx:for="{{[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}">
+          <view style="width:750rpx;margin-top:{{(index+1)*50-5}}rpx;  position: absolute;border-bottom:1rpx solid #ECEFF1;">
+          </view>
+        </view>
+
+        <!--课表-->
+        <view wx:for="{{wlist}}">
+          <view class="flex-item kcb-item" bindtap="showCardView" data-statu="open" data-index="{{index}}" style="margin-left:{{(item.xqj-1)*100}}rpx;margin-top:{{(item.skjc-1)*50+5}}rpx;height:{{item.skcd*50-5}}rpx;background-color:{{colorArrays[index%9]}}">
+            <view class="smalltext">{{item.kcmc}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+  </view>
+
+  <view class='applyform'>
+    <form>
+      <view class='form'>
+        <view class='form-item'>
+          <text class='form-label'> 申请:</text>
+          <text class='form-label rname'> 104教室</text>
+        </view>
+        <view class='form-item'>
+          <text class='form-label'> 用途:</text>
+          <input class='form-input' name='name' placeholder='请输入使用用途'></input>
+        </view>
+        <view class="section">
+          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+            <view class="picker">开始日期: {{startdate}}</view>
+          </picker>
+          <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+            <view class="picker">开始时间: {{starttime}}</view>
+          </picker>
+        </view>
+        <view class="section">
+          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+            <view class="picker">结束日期: {{enddate}}</view>
+          </picker>
+          <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+            <view class="picker">结束时间: {{endtime}}</view>
+          </picker>
+        </view>
+      </view>
+      <button form-type='submit' class='submitbtn'>提交申请</button>
+    </form>
+  </view>
+</view>
