@@ -16,19 +16,29 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  onLoad: function () {
+  onShow:function(){
     let user = app.globalData.userData
-    if (user) {
-      this.setData({
-        auth: '已认证',
-        authorized: 'authorized'
-      })
+    if (user == []) {
+      if(user[0].authname=='admin'){
+        this.setData({
+          auth: '管理员',
+          authorized: 'authorized'
+        })
+      }else{
+        this.setData({
+          auth: '已认证',
+          authorized: 'authorized'
+        })
+      }
     } else {
       this.setData({
         auth: '未认证',
         authorized: 'unauthorized'
       })
     }
+  },
+  onLoad: function () {
+    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -95,10 +105,14 @@ Page({
         image:"/res/icon_warn.png",
         duration: 1500
       })
-      setTimeout(function () {
-        wx.hideToast()
-      }, 2000)
-    } else {
+    } else if (e.detail.value.phone.length!=11){
+      wx.showToast({
+        title: '手机号错误!',
+        image: "/res/icon_warn.png",
+        duration: 1500
+      })
+    } 
+    else {
       wx.request({
         url: 'https://api.gentleleetommy.cn/addUser',
         data: { 
@@ -114,19 +128,42 @@ Page({
               icon: 'success',
               duration: 2000
             })
-            wx.navigateTo({
-              url: '../user'
-            })
             try {
               wx.setStorageSync('phone', e.detail.value.phone);
-              console.log(e.detail.value);
+              let mphone = wx.getStorageSync('phone') || ''
+              console.log("mphone:" + mphone )
+              wx.request({
+                url: 'https://api.gentleleetommy.cn/getUser',
+                header: {
+                  'content-type': 'application/json' // 默认值
+                },
+                method: 'POST',
+                data: {
+                  phone: mphone
+                },
+                success: function (res) {
+                  app.globalData.userData = res.data.user
+                  console.log("zhucedeshih")
+                  console.log(app.globalData.userData)
+                  wx.navigateTo({
+                    url: '../user'
+                  })
+                }
+              })
             } catch (e) {
             }
           }
-          if(res.data.code == 201){
+          else if(res.data.code == 201){
             wx.showModal({
               title: '提示',
               content: '该电话号码已被使用'
+            })
+          }
+          else if(res.data.code == 202){
+            wx.showToast({
+              title: '密钥错误',
+              image: "/res/icon_warn.png",
+              duration: 2000
             })
           }
         },

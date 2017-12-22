@@ -1,4 +1,5 @@
 //index.js
+const app = getApp()
 Page({
   data: {
     datas: [
@@ -43,30 +44,23 @@ Page({
     addHidden:true,
     applyHidden:true,
     modalText: "",
+    hiddenView:true,
   },
 
   //view加载
   onLoad: function () {
     console.log('onLoad')
+  },
+  onShow: function(){
     var that = this
-
-    //网络请求
-    // wx.request({
-    //   url: 'https://api.douban.com/v2/user',
-    //   header: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   method: "GET",
-    //   success: function (res) {
-    //     //获取到了数据
-    //     var newData = res.data;
-    //     console.log(newData.users);
-    //     that.setData({
-    //       datas: newData.users
-    //     })
-    //     that.update()
-    //   }
-    // });
+    let user = app.globalData.userData
+    if (user) {
+      if (user[0].authname == 'admin') {
+        this.setData({
+          hiddenView: false
+        })
+      }
+    }
   },
 
   //事件响应

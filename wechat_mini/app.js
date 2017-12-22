@@ -36,8 +36,8 @@ App({
   },
   getUserData:function(){
     let _this = this
-    // let mphone = wx.getStorageSync('phone') || ''
-    let mphone = '13510568133'
+    let mphone = wx.getStorageSync('phone') || ''
+    // let mphone = '13510568133'
     console.log("dianhuahaoma:" + mphone)
     if (mphone == "") {
       wx.showToast({

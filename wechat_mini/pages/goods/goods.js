@@ -1,4 +1,5 @@
 //index.js
+const app = getApp()
 Page({
   data: {
     datas: [
@@ -14,11 +15,23 @@ Page({
     adminModalHidden: true,
     addHidden:true,
     applyHidden:true,
+    hiddenView:true
   },
-
+  onShow:function(){
+    var that = this
+    let user = app.globalData.userData
+    if (user) {
+      if (user[0].authname == 'admin') {
+        this.setData({
+          hiddenView: false
+        })
+      }
+    }
+  },
   //view加载
   onLoad: function () {
     console.log('onLoad')
+    
     var that = this
 
     //网络请求

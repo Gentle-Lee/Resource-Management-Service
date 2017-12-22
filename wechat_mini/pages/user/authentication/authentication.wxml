@@ -30,7 +30,7 @@
       <view class='form-item'>
         <image class='form-image' src='/res/icon_phone.png'></image>
         <text class='form-label'> 手机</text>
-        <input class='form-input' name='phone' placeholder='请输入手机'></input>
+        <input class='form-input' name='phone' placeholder='请输入11位手机'></input>
       </view>
       <view class='form-item'>
         <image class='form-image' src='/res/icon_email.png'></image>

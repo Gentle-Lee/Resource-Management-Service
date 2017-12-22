@@ -18,7 +18,7 @@
           </view>
         </view>
         <view class='cellbutton'>
-          <block>
+          <block wx:if = "{{!hiddenView}}">
             <text class='modifybtn' bindtap='modalShow'>修改</text>
           </block>
           <text class='applybtn' bindtap='JumpToPlaceApplication'>申请</text>
@@ -26,7 +26,7 @@
       </view>
     </block>
   </view>
-  <block>
+  <block wx:if = "{{!hiddenView}}">
     <view class='addbtn'>
       <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
     </view>

@@ -97,13 +97,17 @@
           </view>
         </view>
         <view class='cellbutton'>
-          <text class='modifybtn' bindtap='adminShow'>修改</text>
+          <block wx:if="{{!hiddenView}}">
+            <text class='modifybtn' bindtap='adminShow'>修改</text>
+          </block>
           <text class='applybtn' bindtap='applyShow'>申请</text>
         </view>
       </view>
     </block>
   </view>
-  <view class='addbtn'>
-    <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
-  </view>
+  <block wx:if="{{!hiddenView}}">
+    <view class='addbtn'>
+      <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
+    </view>
+  </block>
 </view>

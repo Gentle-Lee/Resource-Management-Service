@@ -3,29 +3,11 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    hiddenView:true,
+    hiddenView: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   onLoad: function () {
-    let user = app.globalData.userData
-    if (user){
-      this.setData({
-        auth: '已认证',
-        authorized: 'authorized'
-      })
-    }else{
-      this.setData({
-        auth: '未认证',
-        authorized: 'unauthorized'
-      })
-    }
-    console.log(user[0].authname)
-    if(user[0].authname == 'admin'){
-      this.setData({
-        hiddenView:false
-      })
-    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -53,6 +35,31 @@ Page({
       })
     }
   },
+  onShow: function () {
+    let user = app.globalData.userData
+    console.log("userjiemian")
+    console.log(user)
+    if (user !=null) {
+      if (user[0].authname == 'admin') {
+        this.setData({
+          hiddenView: false,
+          authorized: 'authorized',
+          auth: '管理员'
+        })
+      } else {
+        this.setData({
+          auth: '已认证',
+          authorized: 'authorized'
+        })
+      }
+    }
+    else {
+      this.setData({
+        auth: '未认证',
+        authorized: 'unauthorized'
+      })
+    }
+  },
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -61,7 +68,7 @@ Page({
       hasUserInfo: true
     })
   },
-  JumpToAuthorization: function(){
+  JumpToAuthorization: function () {
     console.log('-------------click');
     wx.navigateTo({
       url: "authentication/authentication",

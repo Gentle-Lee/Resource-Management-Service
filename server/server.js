@@ -75,40 +75,43 @@ app.use('/addUser', (request, response, next) => {
       connection.connect();
 
       var jsondata = request.body;
-      delete jsondata.code;
-      console.log(jsondata);
+     
+      response.writeHead(200, { "Content-Type": "text/html" });
+      var sql = 'call insertUser(?,?,?,?,?,?,?) ';
+      
+       connection.query(sql, [jsondata.wechatname, jsondata.realname, jsondata.gender, jsondata.phone, jsondata.email, jsondata.tname,jsondata.code], function (err, result) {
+             if (err) {
+                   var returnmsg = {
+                         code: 201,
+                         msg: err.message
+                   }
+                   console.log(returnmsg);
+                   response.end(JSON.stringify(returnmsg), 'utf-8');
+                   console.log('[INSERT ERROR] - ', err.message);
+             } else {
+                   console.log(result);
+                   console.log(JSON.stringify(result[0]));
+                   var test = JSON.parse(JSON.stringify(result[0]));
+                   console.log(test[0].info);
+                   if(test[0].info == 0){
+                        var returnmsg = {
+                              code: 202,
+                              msg: "wrong veryfycode"
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                   }
+                   else {
+                        var returnmsg = {
+                              code: 200,
+                              msg: "success"
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                   }
+                   
+             }
+       });
 
-      var checksql = 'select verifycode  from team where tname = ?'
-      connection.query(checksql, [jsondata.tname], function (err, result) {
-            if (err) {
-                  console.log('[INSERT ERROR] - ', err.message);
-                  return;
-            }
-            console.log(result);
-      });
 
-      var sql = 'insert into user(wechatname,realname,gender,phone,email,tname) value(?,?,?,?,?,?) ';
-
-      connection.query(sql, [jsondata.wechatname, jsondata.realname, jsondata.gender, jsondata.phone, jsondata.email, jsondata.tname], function (err, result) {
-            if (err) {
-                  var returnmsg = {
-                        code: 201,
-                        msg: err.message
-                  }
-                  console.log(returnmsg);
-                  response.writeHead(200, { "Content-Type": "text/html" });
-                  response.end(JSON.stringify(returnmsg), 'utf-8');
-                  console.log('[INSERT ERROR] - ', err.message);
-            } else {
-                  var returnmsg = {
-                        code: 200,
-                        msg: "success"
-                  }
-                  response.writeHead(200, { "Content-Type": "text/html" });
-                  response.end(JSON.stringify(returnmsg), 'utf-8');
-            }
-
-      });
 
       connection.end();
 });
@@ -130,7 +133,7 @@ app.use('/getUser', (request, response, next) => {
             msg: 'success',
       };
       var sql = 'select a.wechatname,a.realname,a.gender,a.phone,a.email,a.tname,b.authname from user as a,team as b where a.phone = ? and b.tname = a.tname';
-      
+
       connection.query(sql, [request.body.phone], function (err, result) {
             if (err) {
                   console.log('[GetUser ERROR] - ', err.message);
