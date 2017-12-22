@@ -1,27 +1,31 @@
 const app = getApp()
-const phone = "";
 Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
+    hiddenView:true,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   onLoad: function () {
-    wx.getStorage({
-      key: 'phone',
-      success: function (res) {
-        phone: res.data
-        console.log(res.data)
-      },
-      fail:function(res){
-        wx.showToast({
-          title: '请前往认证',
-          image: "/res/icon_warn.png",
-          duration: 2000
-        })
-      }
-    })
+    let user = app.globalData.userData
+    if (user){
+      this.setData({
+        auth: '已认证',
+        authorized: 'authorized'
+      })
+    }else{
+      this.setData({
+        auth: '未认证',
+        authorized: 'unauthorized'
+      })
+    }
+    console.log(user[0].authname)
+    if(user[0].authname == 'admin'){
+      this.setData({
+        hiddenView:false
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

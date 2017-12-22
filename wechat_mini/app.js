@@ -2,10 +2,11 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
 
+    this.getUserData()
     // 登录
     wx.login({
       success: res => {
@@ -33,7 +34,35 @@ App({
       }
     })
   },
+  getUserData:function(){
+    let _this = this
+    // let mphone = wx.getStorageSync('phone') || ''
+    let mphone = '13510568133'
+    console.log("dianhuahaoma:" + mphone)
+    if (mphone == "") {
+      wx.showToast({
+        title: '请前往认证',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+    } else {
+      wx.request({
+        url: 'https://api.gentleleetommy.cn/getUser',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        method: 'POST',
+        data: {
+          phone: mphone
+        },
+        success: function (res) {
+          _this.globalData.userData = res.data.user
+        }
+      })
+    }
+  },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    userData: null,
   }
 })

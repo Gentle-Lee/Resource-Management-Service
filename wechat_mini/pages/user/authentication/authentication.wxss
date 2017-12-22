@@ -39,7 +39,6 @@ Page {
   border: 1rpx #aaa solid;
   border-radius: 10%;
   padding: 5rpx;
-  color: #aaa;
 }
 
 .form{
@@ -81,4 +80,13 @@ Page {
   margin-left: 50rpx;
   margin-right: 50rpx;
   margin-bottom: 100rpx;
+}
+
+.authorized{
+  border-color: red;
+  color: red;
+}
+.unauthorized{
+  border-color: #aaa;
+  color: #aaa;
 }

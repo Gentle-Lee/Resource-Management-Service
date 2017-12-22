@@ -4,8 +4,8 @@ const app = getApp()
 Page({
   data: {
     items: [
-      { name: 'male', value: '男' },
-      { name: 'femail', value: '女' }
+      { name: '男', value: '男' },
+      { name: '女', value: '女' }
     ],
     team:[],
     index:0,
@@ -16,13 +16,19 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   onLoad: function () {
-    
+    let user = app.globalData.userData
+    if (user) {
+      this.setData({
+        auth: '已认证',
+        authorized: 'authorized'
+      })
+    } else {
+      this.setData({
+        auth: '未认证',
+        authorized: 'unauthorized'
+      })
+    }
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -51,7 +57,7 @@ Page({
     }
     var that = this;
     wx.request({
-      url: 'https://api.gentleleetommy.cn/listTeam', //仅为示例，并非真实的接口地址
+      url: 'https://api.gentleleetommy.cn/listTeam', 
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -66,6 +72,7 @@ Page({
         })    
       }
     })
+
   },
   getUserInfo: function (e) {
     console.log(e)
@@ -94,23 +101,43 @@ Page({
     } else {
       wx.request({
         url: 'https://api.gentleleetommy.cn/addUser',
-        data: { wechatname: app.globalData.userInfo.nickName,name: e.detail.value.name, phone: e.detail.value.phone, gender: e.detail.value.gender, email: e.detail.value.email, team: e.detail.value.team, code: e.detail.value.code },
+        data: { 
+          wechatname: app.globalData.userInfo.nickName, realname: e.detail.value.name, gender: e.detail.value.gender,phone: e.detail.value.phone, email: e.detail.value.email, tname: e.detail.value.team, code: e.detail.value.code },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: {
           "Content-Type": "application/x-www-form-urlencoded"
         }, // 设置请求的 header
         success: function (res) {
-          console.log(res);
-          wx.showToast({
-            title: '成功',
-            icon: 'success',
-            duration: 2000
-          })
-          // success
+          if(res.data.code == 200){
+            wx.showToast({
+              title: '成功',
+              icon: 'success',
+              duration: 2000
+            })
+            wx.navigateTo({
+              url: '../user'
+            })
+            try {
+              wx.setStorageSync('phone', e.detail.value.phone);
+              console.log(e.detail.value);
+            } catch (e) {
+            }
+          }
+          if(res.data.code == 201){
+            wx.showModal({
+              title: '提示',
+              content: '该电话号码已被使用'
+            })
+          }
         },
         fail: function (res) {
           console.log(res);
           // fail
+          wx.showToast({
+            title: '网络错误',
+            image:"/res/icon_warn.png",
+            duration: 2000
+          })
         }
       })
     }

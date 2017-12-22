@@ -8,7 +8,7 @@
         <view class='userinfo-name'>
           <text class="userinfo-nickname" name ='wechatname'>{{userInfo.nickName}}</text>
         </view>
-        <text class='user-authorization'>未认证</text>
+        <text class='user-authorization' class='user-authorization {{authorized}}'>{{auth}}</text>
       </view>
     </view>
   <form bindsubmit='formSubmit'>

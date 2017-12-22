@@ -33,14 +33,12 @@
   border: 1rpx #aaa solid;
   border-radius: 10%;
   padding: 5rpx;
-  color: #aaa;
 }
 
 .list_item{
   display: flex;
   margin-top: 60rpx;
   align-items: center;
-  border: 1rpx #F5F5F5 solid;
   padding-top: 10rpx;
   padding-bottom: 10rpx;
 }
@@ -57,4 +55,13 @@
 }
 .bottom{
   margin-bottom: 50rpx;
+}
+
+.authorized{
+  border-color: red;
+  color: red;
+}
+.unauthorized{
+  border-color: #aaa;
+  color: #aaa;
 }

@@ -6,31 +6,31 @@ var mysql = require('mysql');
 // 创建一个 express 实例
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/listUsers', (request, response, next) => {
       var connection = mysql.createConnection({
-           host     : 'localhost',
-           user     : 'root',
-           password : '83508089l',
-           port: '3306',
-           database : 'Project'
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
       });
-      response.writeHead(200, {"Content-Type": "text/html"});
+      response.writeHead(200, { "Content-Type": "text/html" });
       connection.connect();
 
-      var  sql = 'SELECT * FROM test';
+      var sql = 'SELECT * FROM test';
       //查
-      connection.query(sql,function (err, result) {
-              if(err){
-                console.log('[SELECT ERROR] - ',err.message);
-                return;
-               }
-             response.end(JSON.stringify(result),'utf-8');
+      connection.query(sql, function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
 
-             console.log('--------------------------SELECT----------------------------');
-             console.log(result);
-             console.log('------------------------------------------------------------\n\n');
+            console.log('--------------------------SELECT----------------------------');
+            console.log(result);
+            console.log('------------------------------------------------------------\n\n');
       });
 
       connection.end();
@@ -38,27 +38,27 @@ app.use('/listUsers', (request, response, next) => {
 
 app.use('/listTeam', (request, response, next) => {
       var connection = mysql.createConnection({
-           host     : 'localhost',
-           user     : 'root',
-           password : '83508089l',
-           port: '3306',
-           database : 'Project'
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
       });
-      response.writeHead(200, {"Content-Type": "text/html"});
+      response.writeHead(200, { "Content-Type": "text/html" });
       connection.connect();
 
-      var  sql = 'SELECT * FROM team';
+      var sql = 'SELECT * FROM team';
       //查
-      connection.query(sql,function (err, result) {
-              if(err){
-                console.log('[SELECT ERROR] - ',err.message);
-                return;
-               }
-             response.end(JSON.stringify(result),'utf-8');
+      connection.query(sql, function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
 
-             console.log('--------------------------SELECT----------------------------');
-             console.log(result);
-             console.log('------------------------------------------------------------\n\n');
+            console.log('--------------------------SELECT----------------------------');
+            console.log(result);
+            console.log('------------------------------------------------------------\n\n');
       });
 
       connection.end();
@@ -66,54 +66,94 @@ app.use('/listTeam', (request, response, next) => {
 
 app.use('/addUser', (request, response, next) => {
       var connection = mysql.createConnection({
-           host     : 'localhost',
-           user     : 'root',
-           password : '83508089l',
-           port: '3306',
-           database : 'Project'
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      connection.connect();
+
+      var jsondata = request.body;
+      delete jsondata.code;
+      console.log(jsondata);
+
+      var checksql = 'select verifycode  from team where tname = ?'
+      connection.query(checksql, [jsondata.tname], function (err, result) {
+            if (err) {
+                  console.log('[INSERT ERROR] - ', err.message);
+                  return;
+            }
+            console.log(result);
       });
 
-      console.log(request.body);
+      var sql = 'insert into user(wechatname,realname,gender,phone,email,tname) value(?,?,?,?,?,?) ';
 
-      var  sql = 'insert into user(wechatname,name,phone,gender,email,team,code) values ?';
-      var data = JSON.parse(request.body);
-      // Convert the array of objects into an array of arrays.
-      var responseJson = ObjToArray(data.response.docs);
+      connection.query(sql, [jsondata.wechatname, jsondata.realname, jsondata.gender, jsondata.phone, jsondata.email, jsondata.tname], function (err, result) {
+            if (err) {
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  console.log(returnmsg);
+                  response.writeHead(200, { "Content-Type": "text/html" });
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+                  console.log('[INSERT ERROR] - ', err.message);
+            } else {
+                  var returnmsg = {
+                        code: 200,
+                        msg: "success"
+                  }
+                  response.writeHead(200, { "Content-Type": "text/html" });
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
 
-      console.log(responseJson)
-      
-      // The query object expects an array of objects so you pass in 'responseJson' as is
-      var query = connection.query(sql, responseJson, function(err, result) {
-          if(err) throw err;
-          console.log('data inserted');
       });
 
-      // connection.connect();
+      connection.end();
+});
+
+app.use('/getUser', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      connection.connect();
+      console.log(request.body.phone);
+
+      response.writeHead(200, { "Content-Type": "text/html" });
+      var data = {
+            code: 201,
+            msg: 'success',
+      };
+      var sql = 'select a.wechatname,a.realname,a.gender,a.phone,a.email,a.tname,b.authname from user as a,team as b where a.phone = ? and b.tname = a.tname';
       
-
-      // var  sql = 'SELECT * FROM team';
-      // //查
-      // connection.query(sql,function (err, result) {
-      //         if(err){
-      //           console.log('[SELECT ERROR] - ',err.message);
-      //           return;
-      //          }
-      //        response.end(JSON.stringify(result),'utf-8');
-
-      //        console.log('--------------------------SELECT----------------------------');
-      //        console.log(result);
-      //        console.log('------------------------------------------------------------\n\n');
-      // });
-
-      // connection.end();
+      connection.query(sql, [request.body.phone], function (err, result) {
+            if (err) {
+                  console.log('[GetUser ERROR] - ', err.message);
+                  data.code = 204;
+                  data.msg = err.message;
+                  data.user = result;
+            } else {
+                  data.code = 200;
+                  data.msg = 'success';
+                  data.user = result;
+            }
+            response.end(JSON.stringify(data), 'utf-8');
+            console.log(JSON.stringify(data));
+      });
+      connection.end();
 });
 
 app.use('/test', (request, response, next) => {
-      
-      response.writeHead(200, {"Content-Type": "text/html"});
+
+      response.writeHead(200, { "Content-Type": "text/html" });
 
 
-     response.end("JSON.stringify(result)",'utf-8');
+      response.end("JSON.stringify(result)", 'utf-8');
 });
 
 
