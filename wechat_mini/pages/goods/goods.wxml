@@ -1,94 +1,17 @@
 <!--index.wxml-->
 <view class="container">
-  <modal title="申请" confirm-text="确认" cancel-text="取消" hidden="{{applyHidden}}" bindconfirm="applyConfirm" bindcancel="applyCancel">
-    <form>
-      <view class='form'>
-        <view class='info'>
-          <view class='form-item'>
-            <text class='form-label'> 库存:16</text>
-          </view>
-          <view class='form-item total_num'>
-            <text class='form-label'> 总数：30个</text>
-          </view>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 数量:</text>
-          <input class='form-input' name='name' placeholder='请输入申请数量'></input>
-        </view>
-        <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
-            <view class="picker">开始日期: {{startdate}}</view>
-          </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
-            <view class="picker">开始时间: {{starttime}}</view>
-          </picker>
-        </view>
-        <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
-            <view class="picker">结束日期: {{enddate}}</view>
-          </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
-            <view class="picker">结束时间: {{endtime}}</view>
-          </picker>
-        </view>
-      </view>
-    </form>
-  </modal>
-  <modal title="修改" confirm-text="确认" cancel-text="取消" hidden="{{adminModalHidden}}" bindconfirm="adminConfirm" bindcancel="adminCancel">
-    <form>
-      <view class='form'>
-        <view class='form-item'>
-          <text class='form-label'> 总数:</text>
-          <input value='' class='form-input' name='name' placeholder='请输入总数'></input>
-          <text class='form-label'> 个</text>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 库存:</text>
-          <input class='form-input' name='name' placeholder='请输入库存'></input>
-          <text class='form-label'> 个</text>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 描述:</text>
-          <input class='form-input' name='name' placeholder='请输入物品描述'></input>
-        </view>
-        <button type='warn' class='deletebtn'>删除</button>
-      </view>
-    </form>
-  </modal>
-  <modal title="添加物资信息" confirm-text="确认" cancel-text="取消" hidden="{{addHidden}}" bindconfirm="addConfirm" bindcancel="addCancel">
-    <form>
-      <view class='form'>
-        <view class='form-item'>
-          <text class='form-label'> 名称:</text>
-          <input value='' class='form-input' name='name' placeholder='请输入物品名称'></input>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 数量:</text>
-          <input value='' class='form-input' name='name' placeholder='请输入总共数量'></input>
-          <text class='form-label'> 个</text>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 库存:</text>
-          <input class='form-input' name='name' placeholder='请输入现有库存'></input>
-          <text class='form-label'> 个</text>
-        </view>
-        <view class='form-item'>
-          <text class='form-label'> 描述:</text>
-          <input class='form-input' name='name' placeholder='请输入物品描述'></input>
-        </view>
-      </view>
-    </form>
-  </modal>
   <view class='header'>
     <view class='search_container'>
-      <input name='search_content' placeholder='请输入物品名称' class='search_input'></input>
-      <text class='searchbtn'>搜索</text>
+      <form bindsubmit='searchGoods'>
+        <input name='search_content' placeholder='请输入物资名称' class='search_input'></input>
+        <button class='searchbtn' formType="submit">搜索</button>
+      </form>
     </view>
   </view>
   <view class="listview">
     <block wx:for-items="{{datas}}" wx:for-item="item">
       <view id="{{index}}" class="cellview">
-        <image class="cellimage" mode="scaleToFill" src="{{item.imgurl}}" />
+        <image class="cellimage" mode="scaleToFill" src="{{imgurl}}" />
         <view class="celllabel">
           <text class="celltext">{{item.gname}}</text>
           <view class='celldetail'>
@@ -98,7 +21,7 @@
         </view>
         <view class='cellbutton'>
           <block wx:if="{{!hiddenView}}">
-            <text class='modifybtn' bindtap='adminShow'>修改</text>
+            <text class='modifybtn' bindtap='adminShow' id='{{index}}'>修改</text>
           </block>
           <text class='applybtn' bindtap='applyShow'>申请</text>
         </view>
@@ -111,3 +34,86 @@
     </view>
   </block>
 </view>
+
+
+
+
+<modal title="申请" confirm-text="确认" cancel-text="取消" hidden="{{applyHidden}}" bindconfirm="applyConfirm" bindcancel="applyCancel">
+  <form>
+    <view class='form'>
+      <view class='info'>
+        <view class='form-item'>
+          <text class='form-label'> 库存:16</text>
+        </view>
+        <view class='form-item total_num'>
+          <text class='form-label'> 总数：30个</text>
+        </view>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 数量:</text>
+        <input class='form-input' name='name' placeholder='请输入申请数量'></input>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+          <view class="picker">开始日期: {{startdate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+          <view class="picker">开始时间: {{starttime}}</view>
+        </picker>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+          <view class="picker">结束日期: {{enddate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+          <view class="picker">结束时间: {{endtime}}</view>
+        </picker>
+      </view>
+    </view>
+  </form>
+</modal>
+<modal title="修改 '{{listname}}' 信息" confirm-text="确认" cancel-text="取消" hidden="{{adminModalHidden}}" bindconfirm="adminConfirm" bindcancel="adminCancel">
+  <form>
+    <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 总数:</text>
+        <input value='' class='form-input' value='{{totalnum}}' bindinput='getTotalNum' placeholder='请输入总数'></input>
+        <text class='form-label'> 个</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 库存:</text>
+        <input class='form-input' value='{{stock}}' bindinput='getStock' placeholder='请输入库存'></input>
+        <text class='form-label'> 个</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 描述:</text>
+        <input class='form-input' value='{{description}}' bindinput='getDescription' placeholder='请输入物品描述'></input>
+      </view>
+      <button type='warn' class='deletebtn' bindtap='deleteGoods'>删除</button>
+    </view>
+  </form>
+</modal>
+<modal title="添加物资信息" confirm-text="确认" cancel-text="取消" hidden="{{addHidden}}" bindconfirm="addConfirm" bindcancel="addCancel">
+  <form>
+    <view class='form'>
+      <view class='form-item'>
+        <text class='form-label'> 名称:</text>
+        <input value='' class='form-input' value='{{addgname}}' bindinput='getAddName' placeholder='请输入物品名称'></input>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 数量:</text>
+        <input value='' class='form-input' value='{{addtotalnum}}' bindinput='getAddTotalNum' placeholder='请输入总共数量'></input>
+        <text class='form-label'> 个</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 库存:</text>
+        <input class='form-input' value='{{addstock}}' bindinput='getAddStock' placeholder='请输入现有库存'></input>
+        <text class='form-label'> 个</text>
+      </view>
+      <view class='form-item'>
+        <text class='form-label'> 描述:</text>
+        <input class='form-input' value='{{adddescription}}' bindinput='getAddDescription' placeholder='请输入物品描述'></input>
+      </view>
+    </view>
+  </form>
+</modal>

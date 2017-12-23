@@ -2,78 +2,81 @@
 <view class="container">
   <view class='header'>
     <view class='search_container'>
-      <input name='search_content' placeholder='请输入场地名称' class='search_input'></input>
-      <text class='searchbtn'>搜索</text>
+      <form bindsubmit='searchRoom'>
+        <input name='search_content' placeholder='请输入场地名称' class='search_input'></input>
+        <button class='searchbtn' formType="submit">搜索</button>
+      </form>
+
     </view>
   </view>
   <view class="listview">
     <block wx:for-items="{{datas}}" wx:for-item="item">
       <view id="{{index}}" class="cellview">
-        <image class="cellimage" mode="scaleToFill" src="{{item.imgurl}}" />
+        <image class="cellimage" mode="scaleToFill" src="{{imgurl}}" />
         <view class="celllabel">
           <text class="celltext">{{item.rname}}</text>
           <view class='celldetail'>
-            <text class="cellcapacity">人数:{{item.capacity}}</text>
-            <text class="cellspace">空间:{{item.capacity}}</text>
+            <text class="cellcapacity">人数:{{item.capacity}}人</text>
+            <text class="cellspace">空间:{{item.capacity}}m²</text>
           </view>
         </view>
         <view class='cellbutton'>
-          <block wx:if = "{{!hiddenView}}">
-            <text class='modifybtn' bindtap='modalShow'>修改</text>
+          <block wx:if="{{!hiddenView}}">
+            <text class='modifybtn' bindtap='modalShow' id='{{index}}'>修改</text>
           </block>
           <text class='applybtn' bindtap='JumpToPlaceApplication'>申请</text>
         </view>
       </view>
     </block>
   </view>
-  <block wx:if = "{{!hiddenView}}">
+  <block wx:if="{{!hiddenView}}">
     <view class='addbtn'>
       <image class='add_image' src='../../res/icon_add.png' bindtap='addShow'></image>
     </view>
   </block>
 </view>
 
-<modal title="修改" confirm-text="确认" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
-  <form>
+<modal title="修改{{listname}}信息" confirm-text="确认" cancel-text="取消" hidden="{{modalHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
+  <form bindsubmit='modifySubmit'>
     <view class='form'>
       <view class='form-item'>
         <text class='form-label'> 人数:</text>
-        <input value='' class='form-input' name='name' placeholder='请输入容纳人数'></input>
+        <input value='' class='form-input' bindinput='getCapacity' value='{{capacity}}' placeholder='请输入容纳人数'></input>
         <text class='form-label'> 人</text>
       </view>
       <view class='form-item'>
         <text class='form-label'> 面积:</text>
-        <input class='form-input' name='name' placeholder='请输入场地面积'></input>
+        <input class='form-input' bindinput='getSpace' value='{{space}}' placeholder='请输入场地面积'></input>
         <text class='form-label'>m²</text>
       </view>
       <view class='form-item'>
         <text class='form-label'> 描述:</text>
-        <input class='form-input' name='name' placeholder='请输入场地描述'></input>
+        <input class='form-input' bindinput='getDescription' value='{{description}}' placeholder='请输入场地描述'></input>
       </view>
-      <button type='warn' class='deletebtn'>删除</button>
+      <button type='warn' class='deletebtn' bindtap='deleteRoom'>删除</button>
     </view>
   </form>
 </modal>
 <modal title="添加场地信息" confirm-text="确认" cancel-text="取消" hidden="{{addHidden}}" bindconfirm="addConfirm" bindcancel="addCancel">
-  <form>
+  <form bindsubmit='addSubmit'>
     <view class='form'>
       <view class='form-item'>
         <text class='form-label'> 名称:</text>
-        <input value='' class='form-input' name='name' placeholder='请输入场地名称'></input>
+        <input value='' class='form-input' value= '{{addrname}}' bindinput='getAddRname'  placeholder='请输入场地名称'></input>
       </view>
       <view class='form-item'>
         <text class='form-label'> 人数:</text>
-        <input value='' class='form-input' name='name' placeholder='请输入容纳人数'></input>
+        <input value='' class='form-input' value= '{{addcapacity}}' bindinput='getAddCapacity' placeholder='请输入容纳人数'></input>
         <text class='form-label'> 人</text>
       </view>
       <view class='form-item'>
         <text class='form-label'> 面积:</text>
-        <input class='form-input' name='name' placeholder='请输入场地面积'></input>
+        <input class='form-input' value= '{{addspace}}' bindinput='getAddSpace' placeholder='请输入场地面积'></input>
         <text class='form-label'> m²</text>
       </view>
       <view class='form-item'>
         <text class='form-label'> 描述:</text>
-        <input class='form-input' name='name' placeholder='请输入场地描述'></input>
+        <input class='form-input' value= '{{adddescription}}' bindinput='getAddDescription' placeholder='请输入场地描述'></input>
       </view>
     </view>
   </form>
@@ -87,21 +90,21 @@
         <input class='form-input' name='name' placeholder='请输入使用用途'></input>
       </view>
       <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
-            <view class="picker">开始日期: {{startdate}}</view>
-          </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
-            <view class="picker">开始时间: {{starttime}}</view>
-          </picker>
-        </view>
-        <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
-            <view class="picker">结束日期: {{enddate}}</view>
-          </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
-            <view class="picker">结束时间: {{endtime}}</view>
-          </picker>
-        </view>
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+          <view class="picker">开始日期: {{startdate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+          <view class="picker">开始时间: {{starttime}}</view>
+        </picker>
+      </view>
+      <view class="section">
+        <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+          <view class="picker">结束日期: {{enddate}}</view>
+        </picker>
+        <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+          <view class="picker">结束时间: {{endtime}}</view>
+        </picker>
+      </view>
     </view>
   </form>
 </modal>

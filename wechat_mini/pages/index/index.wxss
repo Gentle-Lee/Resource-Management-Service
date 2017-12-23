@@ -75,6 +75,7 @@
   align-items: center;
   border-radius: 1rpx #aaa solid;
   margin-top: 20rpx;
+  padding-bottom: 20rpx;
   margin-bottom: 20rpx;
 }
 .search_input{

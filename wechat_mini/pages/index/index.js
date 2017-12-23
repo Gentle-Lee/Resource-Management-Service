@@ -2,56 +2,32 @@
 const app = getApp()
 Page({
   data: {
+    imgurl: '../../res/icon_place_default.png',
     datas: [
-      {
-        imgurl:'../../res/icon_place_default.png',
-        rname:'104',
-        capacity:50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      {
-        imgurl: '../../res/icon_place_default.png',
-        rname: '104',
-        capacity: 50
-      },
-      
+
     ],
     modalHidden: true,
-    addHidden:true,
-    applyHidden:true,
+    addHidden: true,
+    applyHidden: true,
     modalText: "",
-    hiddenView:true,
+    hiddenView: true,
+    id: 0,
+    capacity: null,
+    space: null,
+    description: null,
+    addrname:null,
+    addcapacity:null,
+    addspace:null,
+    adddescription:null,
   },
 
   //view加载
   onLoad: function () {
     console.log('onLoad')
+    this.getRooms()
+
   },
-  onShow: function(){
+  onShow: function () {
     var that = this
     let user = app.globalData.userData
     if (user) {
@@ -61,9 +37,57 @@ Page({
         })
       }
     }
+    this.getRooms()
   },
+  searchRoom: function (e) {
+    var that = this
+    console.log(e.detail.value.search_content)
+    if (e.detail.value.search_content) {
+      wx.request({
+        url: 'https://api.gentleleetommy.cn/getRooms',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        method: 'POST',
+        data: {
+          name: e.detail.value.search_content
+        },
+        success: function (res) {
+          console.log(res.data)
+          if (res.data.length != 0) {
+            that.setData({
+              datas: res.data
+            })
+          } else {
+            wx.showToast({
+              title: '无搜索结果',
+              image: "/res/icon_warn.png",
+              duration: 2000
+            })
+          }
 
+        }
+      })
+    } else {
+      this.getRooms()
+    }
+
+  },
   //事件响应
+  getRooms: function () {
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/listRooms',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          datas: res.data
+        })
+      }
+    })
+  },
 
   didSelectCell: function (prama) {
     var menuItem = this.data.datas[parseInt(prama.currentTarget.id)]
@@ -75,6 +99,10 @@ Page({
     })
   },
   modalConfirm: function (e) {
+    var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
+
+    this.modifySubmit()
+
     this.setData({
       modalHidden: true
     })
@@ -87,16 +115,145 @@ Page({
     console.log('cancel');
   },
   modalShow: function (e) {
+    var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
+    console.log(e.currentTarget.id);
     this.setData({
-      modalHidden: false
+      modalHidden: false,
+      listname: menuItem.rname,
+      id: e.currentTarget.id
     })
     console.log('show');
   },
-   addConfirm: function (e) {
+  modifySubmit: function (e) {
+    var rname = this.data.datas[this.data.id].rname
+    console.log(rname.name)
+    var that = this
+    if (this.data.capacity && this.data.space && this.data.description) {
+      wx.request({
+        url: 'https://api.gentleleetommy.cn/modifyRoom',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        method: 'POST',
+        data: {
+          rname: rname,
+          capacity: that.data.capacity,
+          space: that.data.space,
+          description: that.data.description
+        },
+        success: function (res) {
+          if (res.data.code == 200) {
+            wx: wx.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 2000,
+            })
+            that.setData({
+              capacity: null,
+              space: null,
+              description: null
+            })
+          } else {
+            wx: wx.showToast({
+              title: '修改失败',
+              image: "/res/icon_warn.png",
+              duration: 2000
+            })
+          }
+        }
+      })
+    } else {
+      wx: wx.showToast({
+        title: '不能为空',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+    }
+
+  },
+  deleteRoom: function (e) {
+    var rname = this.data.datas[this.data.id].rname
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/deleteRoom',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        rname: rname,
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '删除成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.setData({
+            capacity: null,
+            space: null,
+            description: null
+          })
+        } else {
+          wx: wx.showToast({
+            title: '删除失败',
+            image: "/res/icon_warn.png",
+            duration: 2000
+          })
+        }
+      }
+    })
+    this.setData({
+      modalHidden: true,
+    })
+    console.log('delete');
+  },
+  addConfirm: function (e) {
+    this.addSubmit();
     this.setData({
       addHidden: true
     })
     console.log('confirm');
+  },
+  addSubmit: function () {
+    var that = this
+    console.log(that.data.addrname)
+    console.log(that.data.addcapacity)
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/addRoom',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        rname: that.data.addrname,
+        capacity: that.data.addcapacity,
+        space: that.data.addspace,
+        description: that.data.adddescription,
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '添加成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.setData({
+            addrname: null,
+            addcapacity: null,
+            addspace: null,
+            adddescription: null
+          })
+        } else {
+          wx: wx.showToast({
+            title: '该场地已存在',
+            image: "/res/icon_warn.png",
+            duration: 2000
+          })
+        }
+      }
+    })
   },
   addCancel: function (e) {
     this.setData({
@@ -114,6 +271,7 @@ Page({
     this.setData({
       applyHidden: true
     })
+    
     console.log('confirm');
   },
   applyCancel: function (e) {
@@ -156,6 +314,44 @@ Page({
     wx.navigateTo({
       url: "placeapplication/placeapplication",
     })
-  }
+  },
+  getCapacity: function (e) {
+    this.setData({
+      capacity: e.detail.value
+    })
+  },
+  getSpace: function (e) {
+    this.setData({
+      space: e.detail.value
+    })
+  },
+  getDescription: function (e) {
+    this.setData({
+      description: e.detail.value
+    })
+  },
+  getAddRname: function(e){
+    console.log('getAddRname')
+    this.setData({
+      addrname:e.detail.value
+    })
+    console.log(e.detail.value)
+
+  },
+  getAddCapacity: function (e) {
+    this.setData({
+      addcapacity: e.detail.value
+    })
+  },
+  getAddSpace: function (e) {
+    this.setData({
+      addspace: e.detail.value
+    })
+  },
+  getAddDescription: function (e) {
+    this.setData({
+      adddescription: e.detail.value
+    })
+  },
 
 })
