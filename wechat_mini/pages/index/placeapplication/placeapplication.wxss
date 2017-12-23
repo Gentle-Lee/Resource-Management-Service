@@ -68,13 +68,24 @@
   margin-top: 20rpx;
 }
 
+.form{
+  font-size: 32rpx;
+}
+.form-label,.picker{
+  color: #1296db;
+}
+.time{
+  color: black;
+}
 .form-item{
   display: flex;
   justify-content:space-between;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
 }
+
 .form-input{
+  font-size: 32rpx;
   margin-left: 20rpx;
 }
 .rname{

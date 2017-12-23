@@ -28,36 +28,36 @@
   </view>
 
   <view class='applyform'>
-    <form>
+    <form bindsubmit='applySubmit'>
       <view class='form'>
         <view class='form-item'>
           <text class='form-label'> 申请:</text>
-          <text class='form-label rname'> 104教室</text>
+          <text class='form-label rname' name='rname'> {{rname}}</text>
         </view>
         <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindStartDateChange">
+          <picker mode="date"   bindchange="bindStartDateChange">
             <view class="picker">开始日期: </view>
-            <text class='form-label '> {{startdate}}</text>
+            <text class='form-label time' name='startdate'> {{startdate}}</text>
           </picker>
           <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
             <view class="picker">开始时间:</view>
-            <text class='form-label '> {{starttime}}</text>
+            <text class='form-label time' name='starttime'> {{starttime}}</text>
           </picker>
         </view>
         <view class="section">
-          <picker mode="date" value="{{date}}" start="2017-12-01" bindchange="bindEndDateChange">
+          <picker mode="date" bindchange="bindEndDateChange">
             <view class="picker">结束日期:</view>
-            <text class='form-label'> {{enddate}}</text>
+            <text class='form-label time' name='enddate'> {{enddate}}</text>
           </picker>
           <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
             <view class="picker">结束时间: </view>
-            <text class='form-label '> {{endtime}}</text>
+            <text class='form-label time'name='endtime'> {{endtime}}</text>
           </picker>
         </view>
       </view>
       <view class='form-item'>
         <text class='form-label'> 用途:</text>
-        <textarea class='form-input' name='name' placeholder='请输入使用用途'></textarea>
+        <textarea class='form-input' name='usage' placeholder='请输入使用用途'></textarea>
       </view>
       <button form-type='submit' class='submitbtn'>提交申请</button>
     </form>

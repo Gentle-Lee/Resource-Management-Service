@@ -24,7 +24,7 @@
           <block wx:if="{{!hiddenView}}">
             <text class='modifybtn' bindtap='modalShow' id='{{index}}'>修改</text>
           </block>
-          <text class='applybtn' bindtap='JumpToPlaceApplication'>申请</text>
+          <text class='applybtn' bindtap='JumpToPlaceApplication' id='{{index}}'>申请</text>
         </view>
       </view>
     </block>

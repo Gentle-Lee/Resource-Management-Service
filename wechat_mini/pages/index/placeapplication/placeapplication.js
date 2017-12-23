@@ -22,31 +22,32 @@ Page({
 
     ]
   },
-  onLoad: function () {
+  onLoad: function (option) {
     console.log('onLoad')
+    console.log(option.rname)
+    this.setData({
+      rname:option.rname
+    })
   },
   bindStartDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       startdate: e.detail.value
     })
   },
   bindStartTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       starttime: e.detail.value
     })
   },
   bindEndDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       enddate: e.detail.value
     })
   },
   bindEndTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       endtime: e.detail.value
     })
   },
+  
 })

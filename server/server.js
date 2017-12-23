@@ -373,6 +373,41 @@ app.use('/addCourse', (request, response, next) => {
       connection.end();
 });
 
+app.use('/applyGoods', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+
+      var sql = 'insert into goodsApplication (num,startTime,endTime,gname,status,description,userphone) values(?,?,?,?,?,?,?) ';
+      //查
+      connection.query(sql,[request.body.num,request.body.startTime,request.body.endTime,request.body.gname,request.body.status,request.body.description,request.body.userphone], function (err, result) {
+            if (err) {
+                  console.log('[INSERT application ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }else{
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+            
+      });
+
+      connection.end();
+});
+
 app.use('/addGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',

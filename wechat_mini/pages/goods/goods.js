@@ -4,19 +4,113 @@ Page({
   data: {
     imgurl: '../../res/icon_resource_default.png',
     datas: [],
-    id:null,
+    id: null,
     adminModalHidden: true,
-    addHidden:true,
-    applyHidden:true,
-    hiddenView:true,
-    totalnum:null,
-    stock:null,
-    description:null,
-    addtotalnum:null,
-    addstock:null,
-    adddescription:null,
+    addHidden: true,
+    applyHidden: true,
+    hiddenView: true,
+    totalnum: null,
+    stock: null,
+    description: null,
+    addtotalnum: null,
+    addstock: null,
+    adddescription: null,
+    starttime: "",
+    startdate: "",
+    enddate: "",
+    endtime: "",
+    inputnum: null,
+    inputusage: null,
   },
-  onShow:function(){
+  applySubmit: function (e) {
+    let user = app.globalData.userData;
+    if(!user){
+      wx: wx.showToast({
+        title: '请前往认证',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+      this.setData({
+        applyHidden:true
+      })
+      return;
+    }
+    var menuItem = this.data.datas[this.data.id]
+    console.log(menuItem)
+    var that = this
+    if (this.data.inputnum && this.data.starttime && this.data.startdate && this.data.endtime && this.data.enddate && this.data.inputusage) {
+      var timestamp1 = Date.parse(new Date(this.data.startdate + ' ' + this.data.starttime));
+      var timestamp2 = Date.parse(new Date(this.data.enddate + ' ' + this.data.endtime));
+      console.log(timestamp1)
+      console.log(timestamp2)
+      var that = this
+      if (this.data.inputnum > menuItem.stock) {
+        wx: wx.showToast({
+          title: '库存不足',
+          image: "/res/icon_warn.png",
+          duration: 2000
+        })
+      } else if (timestamp1 > timestamp2) {
+        wx: wx.showToast({
+          title: '时间错误',
+          image: "/res/icon_warn.png",
+          duration: 2000
+        })
+      }
+      else {
+        wx.request({
+          url: 'https://api.gentleleetommy.cn/applyGoods',
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          method: 'POST',
+          data: {
+            num: that.data.inputnum,
+            startTime: that.data.startdate + ' ' + that.data.starttime,
+            endTime: that.data.enddate + ' ' + that.data.endtime,
+            gname: that.data.gname,
+            status: '未归还',
+            description:that.data.inputusage,
+            userphone:user[0].phone
+          },
+          success: function (res) {
+            if (res.data.code == 200) {
+              wx: wx.showToast({
+                title: '申请成功',
+                icon: 'success',
+                duration: 2000,
+              })
+              that.setData({
+                applyHidden: true
+              })
+            } else {
+              wx: wx.showToast({
+                title: '申请失败',
+                image: "/res/icon_warn.png",
+                duration: 2000
+              })
+            }
+          }
+        })
+      }
+    } else {
+      wx: wx.showToast({
+        title: '不能为空',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+    }
+    that.setData({
+      starttime: "",
+      startdate: "",
+      enddate: "",
+      endtime: "",
+      inputnum: null,
+      inputusage: null,
+    })
+    that.listGoods()
+  },
+  onShow: function () {
     var that = this
     let user = app.globalData.userData
     if (user) {
@@ -79,7 +173,7 @@ Page({
   //view加载
   onLoad: function () {
     console.log('onLoad')
-    
+
     var that = this
   },
 
@@ -101,7 +195,7 @@ Page({
     })
     console.log('confirm');
   },
-  
+
   adminCancel: function (e) {
     this.setData({
       adminModalHidden: true
@@ -115,9 +209,9 @@ Page({
       adminModalHidden: false,
       listname: menuItem.gname,
       id: e.currentTarget.id,
-      totalnum:menuItem.totalnum,
-      stock:menuItem.stock,
-      description:menuItem.description
+      totalnum: menuItem.totalnum,
+      stock: menuItem.stock,
+      description: menuItem.description
     })
     console.log('show');
   },
@@ -188,50 +282,54 @@ Page({
     console.log('show');
   },
   applyConfirm: function (e) {
-    this.setData({
-      applyHidden: true
-    })
+    this.applySubmit()
     console.log('confirm');
   },
   applyCancel: function (e) {
     this.setData({
-      applyHidden: true
+      applyHidden: true,
+      starttime: '',
+      startdate: '',
+      enddate: '',
+      endtime: '',
     })
     console.log('cancel');
   },
   applyShow: function (e) {
+    var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
     this.setData({
-      applyHidden: false
+      applyHidden: false,
+      id: e.currentTarget.id,
+      listname: menuItem.gname,
+      gname: menuItem.gname,
+      stock: menuItem.stock,
+      totalnum: menuItem.totalnum
     })
     console.log('show');
   },
   bindStartDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       startdate: e.detail.value
     })
   },
   bindStartTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       starttime: e.detail.value
     })
   },
   bindEndDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       enddate: e.detail.value
     })
   },
   bindEndTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       endtime: e.detail.value
     })
   },
-  getTotalNum:function(e){
+  getTotalNum: function (e) {
     this.setData({
-      totalnum:e.detail.value
+      totalnum: e.detail.value
     })
   },
   getStock: function (e) {
@@ -262,6 +360,16 @@ Page({
   getAddDescription: function (e) {
     this.setData({
       adddescription: e.detail.value
+    })
+  },
+  getInputNum: function (e) {
+    this.setData({
+      inputnum: e.detail.value
+    })
+  },
+  getInputUsage: function (e) {
+    this.setData({
+      inputusage: e.detail.value
     })
   },
   addSubmit: function () {

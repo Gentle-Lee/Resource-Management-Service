@@ -69,7 +69,7 @@ Page({
         }
       })
     } else {
-      this.getRooms()
+      this.listRooms()
     }
 
   },
@@ -151,12 +151,6 @@ Page({
               icon: 'success',
               duration: 2000,
             })
-            that.setData({
-              capacity: null,
-              space: null,
-              description: null
-            })
-            that.getRooms()
           } else {
             wx: wx.showToast({
               title: '修改失败',
@@ -173,6 +167,12 @@ Page({
         duration: 2000
       })
     }
+    that.setData({
+      capacity: null,
+      space: null,
+      description: null
+    })
+    that.listRooms()
 
   },
   deleteRoom: function (e) {
@@ -297,33 +297,40 @@ Page({
     console.log('show');
   },
   bindStartDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       startdate: e.detail.value
     })
   },
   bindStartTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       starttime: e.detail.value
     })
   },
   bindEndDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       enddate: e.detail.value
     })
   },
   bindEndTimeChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       endtime: e.detail.value
     })
   },
-  JumpToPlaceApplication: function () {
-    wx.navigateTo({
-      url: "placeapplication/placeapplication",
-    })
+  JumpToPlaceApplication: function (e) {
+    var user = app.globalData.userData[0]
+    var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
+    console.log(user)
+    if(user){
+      wx.navigateTo({
+        url: "placeapplication/placeapplication?rname=" +menuItem.rname,
+      })
+    }else{
+      wx.showToast({
+        title: '请前往认证',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+    }
   },
   getCapacity: function (e) {
     this.setData({
