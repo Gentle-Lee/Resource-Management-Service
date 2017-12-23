@@ -114,7 +114,10 @@ Page({
     this.setData({
       adminModalHidden: false,
       listname: menuItem.gname,
-      id: e.currentTarget.id
+      id: e.currentTarget.id,
+      totalnum:menuItem.totalnum,
+      stock:menuItem.stock,
+      description:menuItem.description
     })
     console.log('show');
   },
@@ -146,6 +149,7 @@ Page({
               stock: null,
               description: null
             })
+            that.listGoods()
           } else {
             wx: wx.showToast({
               title: '修改失败',
@@ -287,6 +291,7 @@ Page({
             addstock: null,
             adddescription: null
           })
+          that.listGoods()
         } else {
           wx: wx.showToast({
             title: '该物资已存在',
@@ -299,7 +304,11 @@ Page({
   },
   addCancel: function (e) {
     this.setData({
-      addHidden: true
+      addHidden: true,
+      addgname: null,
+      addtotalnum: null,
+      addstock: null,
+      adddescription: null
     })
     console.log('cancel');
   },
@@ -345,6 +354,7 @@ Page({
     this.setData({
       adminModalHidden: true,
     })
+    this.listGoods()
     console.log('delete');
   },
 

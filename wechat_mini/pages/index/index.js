@@ -15,16 +15,16 @@ Page({
     capacity: null,
     space: null,
     description: null,
-    addrname:null,
-    addcapacity:null,
-    addspace:null,
-    adddescription:null,
+    addrname: null,
+    addcapacity: null,
+    addspace: null,
+    adddescription: null,
   },
 
   //view加载
   onLoad: function () {
     console.log('onLoad')
-    this.getRooms()
+    this.listRooms()
 
   },
   onShow: function () {
@@ -37,7 +37,7 @@ Page({
         })
       }
     }
-    this.getRooms()
+    this.listRooms()
   },
   searchRoom: function (e) {
     var that = this
@@ -74,7 +74,7 @@ Page({
 
   },
   //事件响应
-  getRooms: function () {
+  listRooms: function () {
     var that = this
     wx.request({
       url: 'https://api.gentleleetommy.cn/listRooms',
@@ -120,7 +120,10 @@ Page({
     this.setData({
       modalHidden: false,
       listname: menuItem.rname,
-      id: e.currentTarget.id
+      id: e.currentTarget.id,
+      capacity: menuItem.capacity,
+      space: menuItem.space,
+      description: menuItem.description
     })
     console.log('show');
   },
@@ -153,6 +156,7 @@ Page({
               space: null,
               description: null
             })
+            that.getRooms()
           } else {
             wx: wx.showToast({
               title: '修改失败',
@@ -207,6 +211,7 @@ Page({
     this.setData({
       modalHidden: true,
     })
+    this.listRooms()
     console.log('delete');
   },
   addConfirm: function (e) {
@@ -245,6 +250,7 @@ Page({
             addspace: null,
             adddescription: null
           })
+          that.getRooms()
         } else {
           wx: wx.showToast({
             title: '该场地已存在',
@@ -257,7 +263,11 @@ Page({
   },
   addCancel: function (e) {
     this.setData({
-      addHidden: true
+      addHidden: true,
+      addrname: null,
+      addcapacity: null,
+      addspace: null,
+      adddescription: null
     })
     console.log('cancel');
   },
@@ -271,7 +281,7 @@ Page({
     this.setData({
       applyHidden: true
     })
-    
+
     console.log('confirm');
   },
   applyCancel: function (e) {
@@ -330,10 +340,9 @@ Page({
       description: e.detail.value
     })
   },
-  getAddRname: function(e){
-    console.log('getAddRname')
+  getAddRname: function (e) {
     this.setData({
-      addrname:e.detail.value
+      addrname: e.detail.value
     })
     console.log(e.detail.value)
 

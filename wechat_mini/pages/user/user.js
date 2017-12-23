@@ -39,7 +39,7 @@ Page({
     let user = app.globalData.userData
     console.log("userjiemian")
     console.log(user)
-    if (user !=null) {
+    if (user != null) {
       if (user[0].authname == 'admin') {
         this.setData({
           hiddenView: false,
@@ -47,7 +47,9 @@ Page({
           auth: '管理员'
         })
       } else {
+        console.log(user[0].authname)
         this.setData({
+          hiddenView: true,
           auth: '已认证',
           authorized: 'authorized'
         })

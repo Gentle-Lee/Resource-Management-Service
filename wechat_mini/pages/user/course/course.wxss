@@ -1,23 +1,54 @@
 /* pages/user/course/course.wxss */
+
 /* pages/user/application/application.wxss */
 
 .container {
   display: block;
   padding: 0rpx;
 }
-.header{
+
+.header {
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  align-content: center;
 }
 
-.addtext{
+.search_container {
+  align-items: center;
+  border-radius: 1rpx #aaa solid;
+  margin-top: 20rpx;
+  padding-bottom: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.search_input {
+  width: 320rpx;
+  display: inline-block;
+  margin-left: 50rpx;
+  padding: 5rpx 0rpx 5rpx 0rpx;
+}
+
+
+.searchbtn {
+  float: right;
+  font-size: 30rpx;
+  padding: 2rpx 20rpx 2rpx 20rpx;
+  border-radius: 20rpx;
+  border: 1rpx #aaa solid;
+  margin-right: 30rpx;
+}
+.addbtn{
+  background-color: #66BB6A;
+  color: white;
+  border: 0rpx white solid;
+}
+
+.addtext {
   margin-right: 40rpx;
   margin-top: 20rpx;
   color: #1296db;
 }
 
-.card{
+.card {
   display: flex;
   align-items: center;
   padding: 30rpx 20rpx 30rpx 20rpx;
@@ -25,58 +56,66 @@
   border: 1rpx #aaa solid;
   border-radius: 20rpx;
 }
-.card_left{
+
+.card_left {
   width: 80%;
 }
-.card_right{
+
+.card_right {
   margin-left: 20rpx;
 }
-.info{
+
+.info {
   display: flex;
   margin-bottom: 20rpx;
 }
-.time{
+
+.time {
   display: flex;
   align-content: center;
   margin-top: 10rpx;
   font-size: 32rpx;
   color: #aaa;
 }
-.title{
+
+.title {
   font-size: 32rpx;
 }
-.usage{
+
+.usage {
   margin-top: 10rpx;
   padding-right: 40rpx;
   font-size: 32rpx;
 }
-.endtime{
-    margin-left: 20rpx;
-}
-.status{
+
+.status {
   font-size: 32rpx;
   background-color: #1296db;
-  padding: 5rpx 10rpx 5rpx 10rpx ;
+  padding: 5rpx 10rpx 5rpx 10rpx;
   color: white;
   border-radius: 10rpx;
 }
-.card_label{
+
+.card_label {
   font-size: 32rpx;
   color: #1296db;
 }
 
-.form-item{
+.form-item {
   display: flex;
   align-items: center;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
 }
-.form-input{
+
+.form-input {
   margin-left: 20rpx;
 }
-.form-description{
+
+.form-description {
   text-align: center;
 }
-.deletebtn{
+
+.deletebtn {
   margin-top: 40rpx;
 }

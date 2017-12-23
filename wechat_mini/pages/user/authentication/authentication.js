@@ -4,21 +4,20 @@ const app = getApp()
 Page({
   data: {
     items: [
-      { name: '男', value: '男' },
-      { name: '女', value: '女' }
+      { name: '男', value: '男', checked: null},
+      { name: '女', value: '女', checked: null}
     ],
     team:[],
     index:0,
     authorization:"",
     userInfo: {},
-    phone :"",
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   onShow:function(){
     let user = app.globalData.userData
-    if (user == []) {
+    if (user !=null) {
       if(user[0].authname=='admin'){
         this.setData({
           auth: '管理员',
@@ -29,6 +28,20 @@ Page({
           auth: '已认证',
           authorized: 'authorized'
         })
+      }
+      console.log(user[0].email)
+      this.setData({
+        uname:user[0].realname,
+        uemail:user[0].email,
+        uphone:user[0].phone,
+      })
+      if(user[0].gender =='男'){
+        var uitems = this.data.items[0].checked;
+        console.log(uitems)
+        this.setData({
+          uitems:'true'
+        })
+        console.log(uitems)
       }
     } else {
       this.setData({
@@ -145,9 +158,7 @@ Page({
                   app.globalData.userData = res.data.user
                   console.log("zhucedeshih")
                   console.log(app.globalData.userData)
-                  wx.navigateTo({
-                    url: '../user'
-                  })
+                  
                 }
               })
             } catch (e) {

@@ -67,6 +67,30 @@ app.use('/listGoods', (request, response, next) => {
       connection.end();
 });
 
+app.use('/listCourses', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+
+      var sql = 'SELECT courseid,cname,date_format(startTime,\'%y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course';
+      //查
+      connection.query(sql, function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+      });
+
+      connection.end();
+});
+
 app.use('/modifyRoom', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
@@ -82,6 +106,41 @@ app.use('/modifyRoom', (request, response, next) => {
       var sql = 'update room set capacity = ?,space = ? ,description = ? where rname = ? ';
       //查
       connection.query(sql,[request.body.capacity,request.body.space,request.body.description,request.body.rname], function (err, result) {
+            if (err) {
+                  console.log('[UPDATE ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }else{
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+            
+      });
+
+      connection.end();
+});
+
+app.use('/modifyCourse', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+
+      var sql = 'update course set cname = ?,rname = ? ,startTime = ?,endTime = ? where courseid = ? ';
+      //查
+      connection.query(sql,[request.body.cname,request.body.rname,request.body.startTime,request.body.endTime,request.body.courseid], function (err, result) {
             if (err) {
                   console.log('[UPDATE ERROR] - ', err.message);
                   var returnmsg = {
@@ -152,6 +211,41 @@ app.use('/deleteRoom', (request, response, next) => {
       var sql = 'delete from room where rname = ? ';
       //查
       connection.query(sql,[request.body.rname], function (err, result) {
+            if (err) {
+                  console.log('[delete ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }else{
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+            
+      });
+
+      connection.end();
+});
+
+app.use('/deleteCourse', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+
+      var sql = 'delete from course where courseid = ? ';
+      //查
+      connection.query(sql,[request.body.courseid], function (err, result) {
             if (err) {
                   console.log('[delete ERROR] - ', err.message);
                   var returnmsg = {
@@ -243,6 +337,42 @@ app.use('/addRoom', (request, response, next) => {
       connection.end();
 });
 
+
+app.use('/addCourse', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+
+      var sql = 'insert into course(courseid,cname,startTime,endTime,rname) values(?,?,?,?,?) ';
+      //查
+      connection.query(sql,[request.body.courseid,request.body.cname,request.body.startTime,request.body.endTime,request.body.rname], function (err, result) {
+            if (err) {
+                  console.log('[INSERT ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }else{
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+            
+      });
+
+      connection.end();
+});
+
 app.use('/addGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
@@ -302,6 +432,35 @@ app.use('/getRooms', (request, response, next) => {
             console.log('--------------------------SELECT----------------------------');
             console.log(result);
             console.log('------------------------------------------------------------\n\n');
+      });
+
+      connection.end();
+});
+
+app.use('/getCourses', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body.name);
+
+      var sql = 'SELECT courseid,cname,date_format(startTime,\'%y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course where cname = ?';
+      //查
+      connection.query(sql,[request.body.name], function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+
+            // console.log('--------------------------SELECT----------------------------');
+            // console.log(result);
+            // console.log('------------------------------------------------------------\n\n');
       });
 
       connection.end();
@@ -423,7 +582,7 @@ app.use('/getUser', (request, response, next) => {
             database: 'Project'
       });
       connection.connect();
-      console.log(request.body.phone);
+
 
       response.writeHead(200, { "Content-Type": "text/html" });
       var data = {
@@ -444,7 +603,6 @@ app.use('/getUser', (request, response, next) => {
                   data.user = result;
             }
             response.end(JSON.stringify(data), 'utf-8');
-            console.log(JSON.stringify(data));
       });
       connection.end();
 });
