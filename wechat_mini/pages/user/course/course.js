@@ -227,7 +227,7 @@ Page({
         } 
         else {
           wx: wx.showToast({
-            title: '该课程已存在',
+            title: '填写错误',
             image: "/res/icon_warn.png",
             duration: 2000
           })
