@@ -7,19 +7,19 @@
     <scroll-view scroll-y="true" class="scroll">
       <view style="width:730rpx;display:flex;">
         <view style="background-color:#1296db;color:#1296db;">
-          <view wx:for="{{[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}" class="left">
+          <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}" class="left">
             {{item}}
           </view>
         </view>
-        <view wx:for="{{[7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}">
+        <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]}}">
           <view style="width:750rpx;margin-top:{{(index+1)*50-5}}rpx;  position: absolute;border-bottom:1rpx solid #ECEFF1;">
           </view>
         </view>
 
         <!--课表-->
         <view wx:for="{{wlist}}">
-          <view class="flex-item kcb-item" bindtap="showCardView" data-statu="open" data-index="{{index}}" style="margin-left:{{(item.xqj-1)*100}}rpx;margin-top:{{(item.skjc-1)*50+5}}rpx;height:{{item.skcd*50-5}}rpx;background-color:{{colorArrays[index%9]}}">
-            <view class="smalltext">{{item.kcmc}}</view>
+          <view class="flex-item kcb-item" bindtap="showCardView" data-statu="open" data-index="{{index}}" style="margin-left:{{(item.day-1)*100}}rpx;margin-top:{{(item.start-1)*50+5}}rpx;height:{{item.hours*50-5}}rpx;background-color:{{colorArrays[index%9]}}">
+            <view class="smalltext">{{item.name}}</view>
           </view>
         </view>
       </view>
@@ -35,23 +35,19 @@
           <text class='form-label rname' name='rname'> {{rname}}</text>
         </view>
         <view class="section">
-          <picker mode="date"   bindchange="bindStartDateChange">
-            <view class="picker">开始日期: </view>
-            <text class='form-label time' name='startdate'> {{startdate}}</text>
+          <picker mode="date"  name='startdate'  bindchange="bindStartDateChange">
+            <view class="picker">日期: </view>
+            <text class='form-label time'> {{startdate}}</text>
           </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindStartTimeChange">
+          <picker mode="time" name='starttime'  bindchange="bindStartTimeChange">
             <view class="picker">开始时间:</view>
-            <text class='form-label time' name='starttime'> {{starttime}}</text>
+            <text class='form-label time' > {{starttime}}</text>
           </picker>
         </view>
         <view class="section">
-          <picker mode="date" bindchange="bindEndDateChange">
-            <view class="picker">结束日期:</view>
-            <text class='form-label time' name='enddate'> {{enddate}}</text>
-          </picker>
-          <picker mode="time" value="{{time}}" bindchange="bindEndTimeChange">
+          <picker mode="time" name='endtime' value="{{time}}" bindchange="bindEndTimeChange">
             <view class="picker">结束时间: </view>
-            <text class='form-label time'name='endtime'> {{endtime}}</text>
+            <text class='form-label time' > {{endtime}}</text>
           </picker>
         </view>
       </view>

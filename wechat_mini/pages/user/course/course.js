@@ -211,8 +211,14 @@ Page({
             icon: 'success',
             duration: 2000,
           })
-          that.listCourses()
-        } else {
+        } else if (res.data.code == 204){
+          wx: wx.showToast({
+            title: '时间错误',
+            image: "/res/icon_warn.png",
+            duration: 2000
+          })
+        } 
+        else {
           wx: wx.showToast({
             title: '该课程已存在',
             image: "/res/icon_warn.png",
@@ -221,6 +227,7 @@ Page({
         }
       }
     })
+    that.listCourses()
     this.setData({
       courseid: "",
       cname: "",

@@ -72,6 +72,7 @@
   font-size: 32rpx;
 }
 .form-label,.picker{
+  font-size: 32rpx;
   color: #1296db;
 }
 .time{
