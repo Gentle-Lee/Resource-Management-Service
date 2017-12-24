@@ -9,6 +9,37 @@ page {
   background-color: #f9f8f9;
 }
 
+.header {
+  width: 100%;
+  margin-top: 20rpx;
+  border-bottom: 1rpx #aaa solid;
+}
+
+.search_container {
+  align-items: center;
+  border-radius: 1rpx #aaa solid;
+  padding-bottom: 20rpx;
+}
+
+.search_input {
+  width: 320rpx;
+  display: inline-block;
+  margin-left: 50rpx;
+  margin-top: 10rpx;
+  font-size: 32rpx;
+}
+
+.searchbtn {
+  float: right;
+  font-size: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 2rpx;
+  border-radius: 20rpx;
+  border: 1rpx #aaa solid;
+  margin-right: 50rpx;
+}
+
 .nav {
   width: 100%;
   height: 100rpx;
@@ -39,7 +70,7 @@ page {
   display: block;
 }
 
-.card{
+.card {
   display: flex;
   align-items: center;
   padding: 30rpx 20rpx 30rpx 20rpx;
@@ -47,47 +78,64 @@ page {
   border: 1rpx #aaa solid;
   border-radius: 20rpx;
 }
-.card_left{
+
+.card_left {
   width: 80%;
 }
-.card_right{
+
+.card_right {
   margin-left: 20rpx;
 }
-.info{
+
+.info {
   display: flex;
 }
-.time{
+
+.time {
   display: flex;
   align-content: center;
   margin-top: 10rpx;
   font-size: 32rpx;
   color: #aaa;
 }
-.usage{
+
+.status {
+  color: red;
+}
+
+.cancelbtn {
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+}
+
+.usage, .label {
   margin-top: 10rpx;
   padding-right: 40rpx;
   font-size: 32rpx;
 }
-.endtime{
-    margin-left: 20rpx;
+
+.label {
+  color: #aaa;
 }
-.status{
-  font-size: 32rpx;
-  background-color: #1296db;
-  padding: 5rpx 10rpx 5rpx 10rpx ;
-  color: white;
-  border-radius: 10rpx;
+
+.endtime {
+  margin-left: 20rpx;
 }
-.card_label{
+
+.card_label {
   font-size: 32rpx;
   color: #1296db;
 }
-.title,.num{
+
+.title, .num {
   font-size: 32rpx;
 }
-.num_label{
+
+.num_label {
   margin-left: 20rpx;
 }
+
 .hidden {
   display: none;
   text-align: center;

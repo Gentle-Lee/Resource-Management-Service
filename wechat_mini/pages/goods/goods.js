@@ -41,6 +41,7 @@ Page({
     if (this.data.inputnum && this.data.starttime && this.data.startdate && this.data.endtime && this.data.enddate && this.data.inputusage) {
       var timestamp1 = Date.parse(new Date(this.data.startdate + ' ' + this.data.starttime));
       var timestamp2 = Date.parse(new Date(this.data.enddate + ' ' + this.data.endtime));
+      var timestamp3 = new Date();
       console.log(timestamp1)
       console.log(timestamp2)
       var that = this
@@ -50,12 +51,14 @@ Page({
           image: "/res/icon_warn.png",
           duration: 2000
         })
-      } else if (timestamp1 > timestamp2) {
+        return;
+      } else if (timestamp1 >= timestamp2 || timestamp2 < timestamp3) {
         wx: wx.showToast({
           title: '时间错误',
           image: "/res/icon_warn.png",
           duration: 2000
         })
+        return;
       }
       else {
         wx.request({
@@ -69,7 +72,7 @@ Page({
             startTime: that.data.startdate + ' ' + that.data.starttime,
             endTime: that.data.enddate + ' ' + that.data.endtime,
             gname: that.data.gname,
-            status: '未归还',
+            status: '未领取',
             description:that.data.inputusage,
             userphone:user[0].phone
           },
@@ -83,7 +86,14 @@ Page({
               that.setData({
                 applyHidden: true
               })
-            } else {
+            } else if (res.data.code == 204){
+              wx: wx.showToast({
+                title: '时间已过期',
+                image: "/res/icon_warn.png",
+                duration: 2000
+              })
+            }
+            else {
               wx: wx.showToast({
                 title: '申请失败',
                 image: "/res/icon_warn.png",

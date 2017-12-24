@@ -9,6 +9,37 @@ page {
   background-color: #f9f8f9;
 }
 
+.header{
+  width: 100%;
+  margin-top: 20rpx;
+  border-bottom: 1rpx #aaa solid;
+}
+
+.search_container{
+  align-items: center;
+  border-radius: 1rpx #aaa solid;
+  padding-bottom: 20rpx;
+}
+.search_input{
+  width: 320rpx;
+  display: inline-block;
+  margin-left: 50rpx;
+  margin-top: 10rpx;
+  font-size: 32rpx;
+}
+
+.searchbtn{
+  float: right;
+  font-size: 30rpx;
+  padding-left:20rpx;
+  padding-right: 20rpx;
+  padding-top: 2rpx;
+  padding-bottom: 2rpx;
+  border-radius: 20rpx;
+  border: 1rpx #aaa solid;
+  margin-right: 50rpx;
+}
+
 .nav {
   width: 100%;
   height: 100rpx;
@@ -16,9 +47,6 @@ page {
   flex-direction: row;
 }
 
-.title,.num{
-  font-size: 32rpx;
-}
 .default {
   line-height: 100rpx;
   text-align: center;
@@ -66,24 +94,34 @@ page {
   font-size: 32rpx;
   color: #aaa;
 }
-.usage{
-  font-size: 32rpx;
+.status{
+  color: red;
+}
+.cancelbtn{
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+}
+.confirmbtn{
+  margin-bottom: 30rpx;
+}
+.usage,.label{
   margin-top: 10rpx;
   padding-right: 40rpx;
+  font-size: 32rpx;
+}
+.label{
+  color: #aaa;
 }
 .endtime{
     margin-left: 20rpx;
 }
-.status{
-  font-size: 32rpx;
-  background-color: #1296db;
-  padding: 5rpx 10rpx 5rpx 10rpx ;
-  color: white;
-  border-radius: 10rpx;
-}
 .card_label{
   font-size: 32rpx;
   color: #1296db;
+}
+.title,.num{
+  font-size: 32rpx;
 }
 .num_label{
   margin-left: 20rpx;

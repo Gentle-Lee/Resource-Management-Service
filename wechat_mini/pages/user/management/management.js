@@ -1,4 +1,5 @@
-// pages/user/application/application.js
+// pages/user/application/application.js\
+const app = getApp()
 Page({
 
   /**
@@ -7,57 +8,8 @@ Page({
   data: {
     selected: true,
     selected1: false,
-    placeData: [
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于婕拉看风景阿萨德积分王府井"
-      },
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于婕拉看风景阿萨德积分王府井"
-      },
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于婕拉看风景阿萨德积分王府井"
-      },
-
-    ],
-    resData: [
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于婕拉看风景阿萨德积分王府井",
-        num: 5
-      },
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于风景阿萨德积分王府井",
-        num: 5
-      },
-      {
-        name: "104",
-        starttime: "2017-12-7",
-        endtime: "2017-12-7",
-        status: "进行中",
-        usage: "用于婕拉看风景分王府井",
-        num: 7
-      },
-
-    ]
+    placeData: [],
+    resData: []
   },
   selected: function (e) {
     this.setData({
@@ -89,7 +41,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.listRoomApplications()
+    this.listGoodsApplications()
   },
 
   /**
@@ -125,5 +78,245 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  listRoomApplications: function () {
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/listRoomApplications',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        userphone: app.globalData.userData[0].phone
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          placeData: res.data
+        })
+      }
+    })
+  },
+  searchRoomApplication: function (e) {
+    var that = this
+    if (e.detail.value.search_content == '') {
+      this.listRoomApplications()
+      return;
+    }
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/getRoomApplication',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        startTime: e.detail.value.search_content
+      },
+      success: function (res) {
+        if (res.data.length != 0) {
+          that.setData({
+            placeData: res.data
+          })
+        } else {
+          wx: wx.showToast({
+            title: '无搜索结果',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+      }
+    })
+  },
+  deleteRoomApplication: function (e) {
+    var menuItem = this.data.placeData[parseInt(e.currentTarget.id)]
+    console.log(menuItem.startTime)
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/deleteRoomApplication',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        userphone: app.globalData.userData[0].phone,
+        startTime: menuItem.startTime
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '撤销成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.listRoomApplications()
+        } else {
+          wx: wx.showToast({
+            title: '撤销失败',
+            icon: 'success',
+            duration: 2000,
+          })
+        }
+      }
+    })
+  },
+  listGoodsApplications: function () {
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/listGoodsApplications',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          resData: res.data
+        })
+      }
+    })
+  },
+  searchGoodsApplication: function (e) {
+    var that = this
+    if (e.detail.value.search_content == '') {
+      this.listRoomApplications()
+      return;
+    }
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/getGoodsApplication',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        startTime: e.detail.value.search_content
+      },
+      success: function (res) {
+        if (res.data.length != 0) {
+          that.setData({
+            resData: res.data
+          })
+        } else {
+          wx: wx.showToast({
+            title: '无搜索结果',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+      }
+    })
+  },
+  deleteGoodsApplication: function (e) {
+    var menuItem = this.data.placeData[parseInt(e.currentTarget.id)]
+    console.log(menuItem.startTime)
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/deleteUserGoodsApplication',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        userphone: app.globalData.userData[0].phone,
+        startTime: menuItem.startTime
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '撤销成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.listRoomApplications()
+        } else {
+          wx: wx.showToast({
+            title: '撤销失败',
+            icon: 'success',
+            duration: 2000,
+          })
+        }
+      }
+    })
+  },
+  takeGoods: function (e) {
+    var menuItem = this.data.resData[parseInt(e.currentTarget.id)]
+    console.log(menuItem.startTime)
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/takeGoods',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        userphone: menuItem.phone,
+        id: menuItem.id,
+        status: menuItem.status
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.listGoodsApplications()
+        } else if (res.data.code == 202) {
+          wx: wx.showToast({
+            title: '无事发生',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+        else {
+          wx: wx.showToast({
+            title: '修改失败',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+      }
+    })
+  },
+  returnGoods: function (e) {
+    var menuItem = this.data.resData[parseInt(e.currentTarget.id)]
+    console.log(menuItem.startTime)
+    var that = this
+    wx.request({
+      url: 'https://api.gentleleetommy.cn/returnGoods',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: 'POST',
+      data: {
+        userphone: menuItem.phone,
+        id: menuItem.id,
+        status: menuItem.status
+      },
+      success: function (res) {
+        if (res.data.code == 200) {
+          wx: wx.showToast({
+            title: '归还成功',
+            icon: 'success',
+            duration: 2000,
+          })
+          that.listGoodsApplications()
+        } else if (res.data.code == 202) {
+          wx: wx.showToast({
+            title: '无事发生',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+        else {
+          wx: wx.showToast({
+            title: '归还失败',
+            image: "/res/icon_warn.png",
+            duration: 2000,
+          })
+        }
+        that.listGoodsApplications()
+      }
+    })
+  },
 })

@@ -42,6 +42,110 @@ app.use('/listRooms', (request, response, next) => {
       connection.end();
 });
 
+app.use('/listUserRoomApplications', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+
+      console.log(request.body)
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and endTime > now()';
+      //查
+      connection.query(sql, [request.body.userphone],function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result))
+      });
+
+      connection.end();
+});
+app.use('/listRoomApplications', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+
+      console.log(request.body)
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where  endTime > now() and user.phone =roomApplication.userphone';
+      //查
+      connection.query(sql,function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result))
+      });
+
+      connection.end();
+});
+
+
+app.use('/listUserGoodsApplications', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+
+      console.log(request.body)
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status FROM goodsApplication where userphone = ? and status !=\'已归还\' ';
+      //查
+      connection.query(sql, [request.body.userphone],function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result))
+      });
+
+      connection.end();
+});
+
+app.use('/listGoodsApplications', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+
+      console.log(request.body)
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
+      //查
+      connection.query(sql,function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result))
+      });
+
+      connection.end();
+});
+
 app.use('/listGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
@@ -213,6 +317,175 @@ app.use('/deleteRoom', (request, response, next) => {
       connection.query(sql, [request.body.rname], function (err, result) {
             if (err) {
                   console.log('[delete ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            } else {
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+
+      });
+
+      connection.end();
+});
+
+
+app.use('/deleteUserRoomApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+
+      var sql = 'delete from roomApplication where userphone = ? and startTime = ?';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.startTime], function (err, result) {
+            if (err) {
+                  console.log('[delete ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            } else {
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+
+      });
+
+      connection.end();
+});
+
+
+app.use('/deleteUserGoodsApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+      
+      if(request.body.status =='未归还'){
+            var returnmsg = {
+                  code: 202,
+                  msg:'error ： need to return first'
+            }
+            response.end(JSON.stringify(returnmsg), 'utf-8');
+            return;
+      }
+
+      var sql = 'delete from goodsApplication where userphone = ? and id = ?';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.id], function (err, result) {
+            if (err) {
+                  console.log('[delete ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            } else {
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+
+      });
+
+      connection.end();
+});
+
+app.use('/takeGoods', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+      
+      if(request.body.status =='未归还' ||request.body.status =='已归还'  ){
+            var returnmsg = {
+                  code: 202,
+                  msg:'error ： nothing needs to be done'
+            }
+            response.end(JSON.stringify(returnmsg), 'utf-8');
+            return;
+      }
+
+      var sql = 'update  goodsApplication  set status = \'未归还\' where userphone = ? and id = ?';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.id], function (err, result) {
+            if (err) {
+                  console.log('[update ERROR] - ', err.message);
+                  var returnmsg = {
+                        code: 201,
+                        msg: err.message
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            } else {
+                  var returnmsg = {
+                        code: 200,
+                        msg: 'success'
+                  }
+                  response.end(JSON.stringify(returnmsg), 'utf-8');
+            }
+
+      });
+
+      connection.end();
+});
+
+app.use('/returnGoods', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body)
+      
+      if(request.body.status =='未领取'){
+            var returnmsg = {
+                  code: 202,
+                  msg:'error ： nothing needs to be done'
+            }
+            response.end(JSON.stringify(returnmsg), 'utf-8');
+            return;
+      }
+
+      var sql = 'call return_goods(?,?)';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.id], function (err, result) {
+            if (err) {
+                  console.log('[update ERROR] - ', err.message);
                   var returnmsg = {
                         code: 201,
                         msg: err.message
@@ -406,6 +679,19 @@ app.use('/applyGoods', (request, response, next) => {
       connection.connect();
       console.log(request.body)
 
+      var timestamp1 =  Date.parse(new Date(request.body.endTime));
+      var timestamp2 = Date.parse(new Date(request.body.startTime));
+      var timestamp3 = new Date();
+
+      if(timestamp1 <= timestamp2 | timestamp2 < timestamp3){
+            var returnmsg = {
+                  code: 204,
+                  msg: 'wrong time'
+            }
+            response.end(JSON.stringify(returnmsg), 'utf-8');
+            return;
+      }
+
       var sql = 'insert into goodsApplication (num,startTime,endTime,gname,status,description,userphone) values(?,?,?,?,?,?,?) ';
       //查
       connection.query(sql, [request.body.num, request.body.startTime, request.body.endTime, request.body.gname, request.body.status, request.body.description, request.body.userphone], function (err, result) {
@@ -587,6 +873,110 @@ app.use('/getRooms', (request, response, next) => {
             console.log('--------------------------SELECT----------------------------');
             console.log(result);
             console.log('------------------------------------------------------------\n\n');
+      });
+
+      connection.end();
+});
+
+
+app.use('/getUserRoomApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body.userphone);
+      console.log(request.body.startTime);
+
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and date(startTime) = date(?)';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.startTime], function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+      });
+
+      connection.end();
+});
+
+app.use('/getUserGoodsApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body.userphone);
+      console.log(request.body.startTime);
+
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,description,status,num FROM goodsApplication where userphone = ? and date(startTime) = date(?)';
+      //查
+      connection.query(sql, [request.body.userphone,request.body.startTime], function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result));
+      });
+
+      connection.end();
+});
+
+app.use('/getGoodsApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body.startTime);
+
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where date(startTime) = date(?) and status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
+      connection.query(sql, [request.body.startTime], function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
+            console.log(JSON.stringify(result));
+      });
+
+      connection.end();
+});
+
+
+app.use('/getRoomApplication', (request, response, next) => {
+      var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '83508089l',
+            port: '3306',
+            database: 'Project'
+      });
+      response.writeHead(200, { "Content-Type": "text/html" });
+      connection.connect();
+      console.log(request.body.userphone);
+      console.log(request.body.startTime);
+      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where date(startTime) = date(?) and user.phone =roomApplication.userphone';
+      connection.query(sql, [request.body.startTime], function (err, result) {
+            if (err) {
+                  console.log('[SELECT ERROR] - ', err.message);
+                  return;
+            }
+            response.end(JSON.stringify(result), 'utf-8');
       });
 
       connection.end();

@@ -7,7 +7,7 @@
         <button class='searchbtn' formType="submit">搜索</button>
       </form>
 
-    </view>
+    </view> 
   </view>
   <view class="listview">
     <block wx:for-items="{{datas}}" wx:for-item="item">

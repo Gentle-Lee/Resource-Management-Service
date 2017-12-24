@@ -5,44 +5,60 @@
     <view class="{{selected1?'red':'default'}}" bindtap="selected1">物资</view>
   </view>
   <view class="{{selected?'show':'hidden'}}">
+    <view class='header'>
+      <view class='search_container'>
+        <form bindsubmit='searchUserRoomApplication'>
+          <input name='search_content' placeholder='请输入申请日期' class='search_input'></input>
+          <button class='searchbtn' formType="submit">搜索</button>
+        </form>
+      </view>
+    </view>
     <block wx:for-items="{{placeData}}" wx:for-item="item">
       <view id="{{index}}" class='card'>
         <view class='card_left'>
           <view class='info'>
-          <view class='card_label'>名称：</view>
-           <view class='title'>{{item.name}}</view>
+            <view class='card_label'>名称：</view>
+            <view class='title'>{{item.rname}}</view>
           </view>
-          <view class='time'>
-            <view class='starttime'>{{item.starttime}}</view>
-            <view class='endtime'>{{item.endtime}}</view>
-          </view>
-          <view class='usage'>{{item.usage}}</view>
+          <view class='time'>开始时间:{{item.startTime}}</view>
+          <view class='time'>结束时间:{{item.endTime}}</view>
+          <view class='usage'>用途：{{item.description}}</view>
+        </view>
+        <view class='card_right'>
+          <button class='cancelbtn' type='warn' id="{{index}}" bindtap='deleteUserRoomApplication'>撤销申请</button>
         </view>
       </view>
     </block>
 
   </view>
   <view class="{{selected1?'show':'hidden'}}">
-  <block wx:for-items="{{resData}}" wx:for-item="item">
+    <view class='header'>
+      <view class='search_container'>
+        <form bindsubmit='searchUserGoodsApplication'>
+          <input name='search_content' placeholder='请输入申请日期' class='search_input'></input>
+          <button class='searchbtn' formType="submit">搜索</button>
+        </form>
+      </view>
+    </view>
+    <block wx:for-items="{{resData}}" wx:for-item="item">
       <view id="{{index}}" class='card'>
         <view class='card_left'>
           <view class='info'>
-          <view class='card_label'>名称：</view>
-           <view class='title'>{{item.name}}</view>
-           <view class='card_label num_label'>数量：</view>
-           <view class='num'>{{item.num}}</view>
+            <view class='card_label'>名称：</view>
+            <view class='title'>{{item.gname}}</view>
           </view>
-          <view class='time'>
-            <view class='starttime'>{{item.starttime}}</view>
-            <view class='endtime'>{{item.endtime}}</view>
-          </view>
-          <view class='usage'>{{item.usage}}</view>
+          <view class='time status'>状态：{{item.status}}</view>
+          <view class='time'>开始时间:{{item.startTime}}</view>
+          <view class='time'>结束时间:{{item.endTime}}</view>
+           <view class='time'>申请数量:{{item.num}}</view>
+            
+          <view class='usage'>用途：{{item.description}}</view>
         </view>
         <view class='card_right'>
-          <view class='status'>{{item.status}}</view>
+          <button class='cancelbtn' type='warn' id="{{index}}" bindtap='deleteUserGoodsApplication'>撤销申请</button>
         </view>
       </view>
     </block>
-  
+
   </view>
 </view>
