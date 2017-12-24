@@ -1,4 +1,3 @@
-//index.js
 const app = getApp()
 Page({
   data: {
@@ -21,6 +20,9 @@ Page({
     endtime: "",
     inputnum: null,
     inputusage: null,
+  },
+  onPullDownRefresh: function () {
+    this.listGoods()
   },
   applySubmit: function (e) {
     let user = app.globalData.userData;
@@ -307,6 +309,14 @@ Page({
   },
   applyShow: function (e) {
     var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
+    if(app.globalData.userData == null){
+      wx.showToast({
+        title: '请前往认证',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+      return;
+    }
     this.setData({
       applyHidden: false,
       id: e.currentTarget.id,

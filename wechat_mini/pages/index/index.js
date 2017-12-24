@@ -1,4 +1,3 @@
-//index.js
 const app = getApp()
 Page({
   data: {
@@ -317,7 +316,7 @@ Page({
     })
   },
   JumpToPlaceApplication: function (e) {
-    var user = app.globalData.userData[0]
+    var user = app.globalData.userData
     var menuItem = this.data.datas[parseInt(e.currentTarget.id)]
     console.log(user)
     if(user){

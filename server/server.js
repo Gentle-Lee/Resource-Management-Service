@@ -54,7 +54,7 @@ app.use('/listUserRoomApplications', (request, response, next) => {
       connection.connect();
 
       console.log(request.body)
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and endTime > now()';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and endTime > now()';
       //查
       connection.query(sql, [request.body.userphone],function (err, result) {
             if (err) {
@@ -79,7 +79,7 @@ app.use('/listRoomApplications', (request, response, next) => {
       connection.connect();
 
       console.log(request.body)
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where  endTime > now() and user.phone =roomApplication.userphone';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where  endTime > now() and user.phone =roomApplication.userphone';
       //查
       connection.query(sql,function (err, result) {
             if (err) {
@@ -106,7 +106,7 @@ app.use('/listUserGoodsApplications', (request, response, next) => {
       connection.connect();
 
       console.log(request.body)
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status FROM goodsApplication where userphone = ? and status !=\'已归还\' ';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,gname,num,description,status FROM goodsApplication where userphone = ? and status !=\'已归还\' ';
       //查
       connection.query(sql, [request.body.userphone],function (err, result) {
             if (err) {
@@ -132,7 +132,7 @@ app.use('/listGoodsApplications', (request, response, next) => {
       connection.connect();
 
       console.log(request.body)
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
       //查
       connection.query(sql,function (err, result) {
             if (err) {
@@ -182,7 +182,7 @@ app.use('/listCourses', (request, response, next) => {
       response.writeHead(200, { "Content-Type": "text/html" });
       connection.connect();
 
-      var sql = 'SELECT courseid,cname,date_format(startTime,\'%y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course';
+      var sql = 'SELECT courseid,cname,date_format(startTime,\'%Y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%Y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course';
       //查
       connection.query(sql, function (err, result) {
             if (err) {
@@ -240,28 +240,46 @@ app.use('/modifyCourse', (request, response, next) => {
       });
       response.writeHead(200, { "Content-Type": "text/html" });
       connection.connect();
-      console.log(request.body)
-
-      var sql = 'update course set cname = ?,rname = ? ,startTime = ?,endTime = ? where courseid = ? ';
+      var sql = 'call modify_course(?,?,?,?,?) ';
       //查
-      connection.query(sql, [request.body.cname, request.body.rname, request.body.startTime, request.body.endTime, request.body.courseid], function (err, result) {
+      connection.query(sql, [request.body.courseid, request.body.cname, request.body.startTime, request.body.endTime, request.body.rname], function (err, result) {
             if (err) {
-                  console.log('[UPDATE ERROR] - ', err.message);
+                  console.log('[modify_course ERROR] - ', err.message);
                   var returnmsg = {
                         code: 201,
                         msg: err.message
                   }
                   response.end(JSON.stringify(returnmsg), 'utf-8');
             } else {
-                  var returnmsg = {
-                        code: 200,
-                        msg: 'success'
+                  var test = JSON.parse(JSON.stringify(result[0]));
+                  console.log(test[0].info)
+                  if (test[0].info == 0) {
+                        console.log('fail = 0 ')
+                        var returnmsg = {
+                              code: 204,
+                              msg: 'wrong schedule'
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
                   }
-                  response.end(JSON.stringify(returnmsg), 'utf-8');
+                  else if (test[0].info == -2) {
+                        console.log('fail = -2 ')
+                        var returnmsg = {
+                              code: 205,
+                              msg: 'wrong time'
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                  }
+                  else {
+                        console.log('success')
+                        var returnmsg = {
+                              code: 200,
+                              msg: 'success'
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                  }
             }
 
       });
-
       connection.end();
 });
 
@@ -393,7 +411,7 @@ app.use('/deleteUserGoodsApplication', (request, response, next) => {
             return;
       }
 
-      var sql = 'delete from goodsApplication where userphone = ? and id = ?';
+      var sql = 'call delete_goods_application(?,?)';
       //查
       connection.query(sql, [request.body.userphone,request.body.id], function (err, result) {
             if (err) {
@@ -788,7 +806,6 @@ app.use('/getSchedule', (request, response, next) => {
       var sql = '(select (weekday(startTime)+1) as day,hour(startTime) as start,(hour(endTime) - hour(startTime)) as hours,tname as name from roomApplication as r ,user as u where date(startTime) >= date(subdate(curdate(),if(date_format(curdate(),\'%w\')=0,7,date_format(curdate(),\'%w\'))-1)) and date(endTime) <= date(subdate(curdate(),if(date_format(curdate(),\'%w\')=0,7,date_format(curdate(),\'%w\'))-7)) and u.phone = r.userphone and r.rname = ?)';
       var sql1 = 'union(select (weekday(startTime)+1) as day,hour(startTime) as start,(hour(endTime) - hour(startTime)) as hours,cname as name from course where date(endTime) >= date(now()) and rname = ?)';
       sql += sql1;
-      console.log(sql)
       connection.query(sql, [request.body.rname,request.body.rname], function (err, result) {
             if (err) {
                   console.log('[getSchedule  ERROR] - ', err.message);
@@ -892,7 +909,7 @@ app.use('/getUserRoomApplication', (request, response, next) => {
       console.log(request.body.userphone);
       console.log(request.body.startTime);
 
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and date(startTime) = date(?)';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,rname,description FROM roomApplication where userphone = ? and date(startTime) = date(?)';
       //查
       connection.query(sql, [request.body.userphone,request.body.startTime], function (err, result) {
             if (err) {
@@ -918,7 +935,7 @@ app.use('/getUserGoodsApplication', (request, response, next) => {
       console.log(request.body.userphone);
       console.log(request.body.startTime);
 
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,description,status,num FROM goodsApplication where userphone = ? and date(startTime) = date(?)';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,gname,description,status,num FROM goodsApplication where userphone = ? and date(startTime) = date(?)';
       //查
       connection.query(sql, [request.body.userphone,request.body.startTime], function (err, result) {
             if (err) {
@@ -944,7 +961,7 @@ app.use('/getGoodsApplication', (request, response, next) => {
       connection.connect();
       console.log(request.body.startTime);
 
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where date(startTime) = date(?) and status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,gname,num,description,status,realname as username,phone,tname FROM goodsApplication,user where date(startTime) = date(?) and status !=\'已归还\' and user.phone =goodsApplication.userphone  ';
       connection.query(sql, [request.body.startTime], function (err, result) {
             if (err) {
                   console.log('[SELECT ERROR] - ', err.message);
@@ -970,7 +987,7 @@ app.use('/getRoomApplication', (request, response, next) => {
       connection.connect();
       console.log(request.body.userphone);
       console.log(request.body.startTime);
-      var sql = 'SELECT id,date_format(startTime,\'%y-%m-%d %T\') as startTime,date_format(endTime,\'%y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where date(startTime) = date(?) and user.phone =roomApplication.userphone';
+      var sql = 'SELECT id,date_format(startTime,\'%Y-%m-%d %T\') as startTime,date_format(endTime,\'%Y-%m-%d %T\') as endTime,rname,description,realname as username,phone,tname FROM roomApplication,user where date(startTime) = date(?) and user.phone =roomApplication.userphone';
       connection.query(sql, [request.body.startTime], function (err, result) {
             if (err) {
                   console.log('[SELECT ERROR] - ', err.message);
@@ -994,7 +1011,7 @@ app.use('/getCourses', (request, response, next) => {
       connection.connect();
       console.log(request.body.name);
 
-      var sql = 'SELECT courseid,cname,date_format(startTime,\'%y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course where cname = ?';
+      var sql = 'SELECT courseid,cname,date_format(startTime,\'%Y-%m-%d\') as startDate,date_format(startTime,\'%T\') as startTime,date_format(endTime,\'%Y-%m-%d\') as endDate,date_format(endTime,\'%T\') as endTime,rname FROM course where cname = ?';
       //查
       connection.query(sql, [request.body.name], function (err, result) {
             if (err) {

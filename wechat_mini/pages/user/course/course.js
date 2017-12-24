@@ -269,7 +269,22 @@ Page({
               icon: 'success',
               duration: 2000,
             })
-          } else {
+          }
+          else if (res.data.code == 204){
+            wx: wx.showToast({
+              title: '时间冲突',
+              image: "/res/icon_warn.png",
+              duration: 2000
+            })
+          }
+          else if (res.data.code == 205) {
+            wx: wx.showToast({
+              title: '修改时间错误',
+              image: "/res/icon_warn.png",
+              duration: 2000
+            })
+          }
+           else {
             wx: wx.showToast({
               title: '修改失败',
               image: "/res/icon_warn.png",

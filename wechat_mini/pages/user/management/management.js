@@ -133,13 +133,13 @@ Page({
     console.log(menuItem.startTime)
     var that = this
     wx.request({
-      url: 'https://api.gentleleetommy.cn/deleteRoomApplication',
+      url: 'https://api.gentleleetommy.cn/deleteUserRoomApplication',
       header: {
         'content-type': 'application/json' // 默认值
       },
       method: 'POST',
       data: {
-        userphone: app.globalData.userData[0].phone,
+        userphone: menuItem.phone,
         startTime: menuItem.startTime
       },
       success: function (res) {

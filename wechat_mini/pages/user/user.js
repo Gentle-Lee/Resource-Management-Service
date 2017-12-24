@@ -77,9 +77,18 @@ Page({
     })
   },
   JumpToApplication: function () {
-    wx.navigateTo({
-      url: "application/application",
-    })
+    if(app.globalData.userData){
+      wx.navigateTo({
+        url: "application/application",
+      })
+    }else{
+      wx.showToast({
+        title: '请前往认证',
+        image: "/res/icon_warn.png",
+        duration: 2000
+      })
+    }
+    
   },
   JumpToManagement: function () {
     wx.navigateTo({

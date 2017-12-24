@@ -63,7 +63,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.listUserRoomApplications()
+    this.listUserGoodsApplications()
   },
 
   /**
@@ -150,7 +151,6 @@ Page({
             icon: 'success',
             duration: 2000,
           })
-          that.listUserRoomApplications()
         } else {
           wx: wx.showToast({
             title: '撤销失败',
@@ -160,6 +160,7 @@ Page({
         }
       }
     })
+    that.listUserRoomApplications()
   },
   listUserGoodsApplications: function () {
     var that = this
@@ -232,7 +233,6 @@ Page({
             icon: 'success',
             duration: 2000,
           })
-          that.listUserRoomApplications()
         } else if (res.data.code == 202){
           wx: wx.showToast({
             title: '尚未归还',
@@ -249,5 +249,6 @@ Page({
         }
       }
     })
+    this.listUserGoodsApplications()
   },
 })
