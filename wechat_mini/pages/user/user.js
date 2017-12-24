@@ -90,5 +90,23 @@ Page({
     wx.navigateTo({
       url: "course/course",
     })
+  },
+  showInfo:function(){
+    wx:wx.showModal({
+      title: '使用须知',
+      content: '希望大家爱护公共场地，保持场地干净整洁',
+      cancelText: '再看看',
+      confirmText: '知道了',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  showAuthor:function(){
+    wx:wx.showToast({
+      title: 'Gentle_Lee',
+      image: '/res/icon_author.png',
+      duration: 2000,
+    })
   }
 })

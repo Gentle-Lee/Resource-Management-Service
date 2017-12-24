@@ -23,11 +23,11 @@
       <text class='list_item-text'>课程信息</text>
     </view>
   </block>
-  <view class='list_item'>
-    <image class='list_item-image' src='/res/icon_instruction.png'></image>
+  <view class='list_item' bindtap='showInfo'>
+    <image class='list_item-image' src='/res/icon_instruction.png' ></image>
     <text class='list_item-text'>使用须知</text>
   </view>
-  <view class='list_item'>
+  <view class='list_item' bindtap='showAuthor'>
     <image class='list_item-image' src='/res/icon_about.png'></image>
     <text class='list_item-text'>关于</text>
   </view>
