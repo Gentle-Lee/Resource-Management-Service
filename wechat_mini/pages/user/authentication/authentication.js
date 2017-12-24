@@ -112,6 +112,7 @@ Page({
   },
   formSubmit: function (e) {
     console.log(e);
+    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if (e.detail.value.name.length == 0 || e.detail.value.phone.length == 0 || e.detail.value.gender.length == 0 || e.detail.value.email.length == 0 || e.detail.value.team.length == 0 || e.detail.value.code.length == 0) {
       wx.showToast({
         title: '请填写全部内容!',
@@ -124,7 +125,15 @@ Page({
         image: "/res/icon_warn.png",
         duration: 1500
       })
-    } 
+      return;
+    } else if (!myreg.test(e.detail.value.email)){
+      wx.showToast({
+        title: '邮箱错误!',
+        image: "/res/icon_warn.png",
+        duration: 1500
+      })
+      return;
+    }
     else {
       wx.request({
         url: 'https://api.gentleleetommy.cn/addUser',
