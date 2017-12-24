@@ -370,7 +370,16 @@ app.use('/addCourse', (request, response, next) => {
                               msg: 'wrong schedule'
                         }
                         response.end(JSON.stringify(returnmsg), 'utf-8');
-                  } else {
+                  }
+                  else if (test[0].info == -2) {
+                        console.log('fail = -2 ')
+                        var returnmsg = {
+                              code: 205,
+                              msg: 'wrong time'
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                  }
+                  else {
                         console.log('success')
                         var returnmsg = {
                               code: 200,
@@ -454,7 +463,7 @@ app.use('/applyRoom', (request, response, next) => {
                         }
                         response.end(JSON.stringify(returnmsg), 'utf-8');
                   }else if(test[0].info == -2){
-                        console.log('success')
+                        console.log('fail = -2')
                         var returnmsg = {
                               code: 205,
                               msg: 'wrong date'

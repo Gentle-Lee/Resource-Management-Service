@@ -213,6 +213,13 @@ Page({
           })
         } else if (res.data.code == 204){
           wx: wx.showToast({
+            title: '时间段被申请',
+            image: "/res/icon_warn.png",
+            duration: 2000
+          })
+        } 
+        else if (res.data.code == 205) {
+          wx: wx.showToast({
             title: '时间错误',
             image: "/res/icon_warn.png",
             duration: 2000
