@@ -65,7 +65,13 @@ Page({
               image: "/res/icon_warn.png",
               duration: 2000
             })
-          } else {
+          } else if (res.data.code == 205) {
+            wx:wx.showModal({
+              title: '错误',
+              content: '请检查您的时间区间 并且 请申请未来本周内（到周日）的场地',
+            })
+          } 
+          else {
             wx: wx.showToast({
               title: '申请失败',
               image: "/res/icon_warn.png",
@@ -80,9 +86,8 @@ Page({
         image: "/res/icon_warn.png",
         duration: 2000
       })
-      this.getSchedule()
     }
-    
+    this.getSchedule()
   },
   getSchedule:function(){
     var that = this

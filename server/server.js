@@ -453,7 +453,15 @@ app.use('/applyRoom', (request, response, next) => {
                               msg: 'wrong schedule'
                         }
                         response.end(JSON.stringify(returnmsg), 'utf-8');
-                  } else {
+                  }else if(test[0].info == -2){
+                        console.log('success')
+                        var returnmsg = {
+                              code: 205,
+                              msg: 'wrong date'
+                        }
+                        response.end(JSON.stringify(returnmsg), 'utf-8');
+                  } 
+                  else {
                         console.log('success')
                         var returnmsg = {
                               code: 200,
@@ -483,9 +491,10 @@ app.use('/getSchedule', (request, response, next) => {
       console.log(request.body)
 
       var sql = '(select (weekday(startTime)+1) as day,hour(startTime) as start,(hour(endTime) - hour(startTime)) as hours,tname as name from roomApplication as r ,user as u where date(startTime) >= date(subdate(curdate(),if(date_format(curdate(),\'%w\')=0,7,date_format(curdate(),\'%w\'))-1)) and date(endTime) <= date(subdate(curdate(),if(date_format(curdate(),\'%w\')=0,7,date_format(curdate(),\'%w\'))-7)) and u.phone = r.userphone and r.rname = ?)';
-      var sql1 = 'union(select (weekday(startTime)+1) as day,hour(startTime) as start,(hour(endTime) - hour(startTime)) as hours,cname as name from course where date(endTime) >= date(now()))';
+      var sql1 = 'union(select (weekday(startTime)+1) as day,hour(startTime) as start,(hour(endTime) - hour(startTime)) as hours,cname as name from course where date(endTime) >= date(now()) and rname = ?)';
       sql += sql1;
-      connection.query(sql, [request.body.rname], function (err, result) {
+      console.log(sql)
+      connection.query(sql, [request.body.rname,request.body.rname], function (err, result) {
             if (err) {
                   console.log('[getSchedule  ERROR] - ', err.message);
                   var returnmsg = {
