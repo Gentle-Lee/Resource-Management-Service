@@ -17,7 +17,7 @@
           <text class="celltext">{{item.rname}}</text>
           <view class='celldetail'>
             <text class="cellcapacity">人数:{{item.capacity}}人</text>
-            <text class="cellspace">空间:{{item.capacity}}m²</text>
+            <text class="cellspace">空间:{{item.space}}m²</text>
           </view>
         </view>
         <view class='cellbutton'>
