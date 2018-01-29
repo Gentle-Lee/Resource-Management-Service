@@ -19,9 +19,10 @@ app.use('/test', (request, response, next) => {
 
 app.use('/listRooms', (request, response, next) => {
       var connection = mysql.createConnection({
+            
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -46,7 +47,7 @@ app.use('/listUserRoomApplications', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -71,7 +72,7 @@ app.use('/listRoomApplications', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -98,7 +99,7 @@ app.use('/listUserGoodsApplications', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -124,7 +125,7 @@ app.use('/listGoodsApplications', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -150,7 +151,7 @@ app.use('/listGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -175,7 +176,7 @@ app.use('/listCourses', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -199,7 +200,7 @@ app.use('/modifyRoom', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -234,7 +235,7 @@ app.use('/modifyCourse', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -287,7 +288,7 @@ app.use('/modifyGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -322,7 +323,7 @@ app.use('/deleteRoom', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -358,7 +359,7 @@ app.use('/deleteUserRoomApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -394,7 +395,7 @@ app.use('/deleteUserGoodsApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -438,7 +439,7 @@ app.use('/takeGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -482,7 +483,7 @@ app.use('/returnGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -526,7 +527,7 @@ app.use('/deleteCourse', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -562,7 +563,7 @@ app.use('/deleteGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -597,7 +598,7 @@ app.use('/addRoom', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -633,7 +634,7 @@ app.use('/addCourse', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -689,7 +690,7 @@ app.use('/applyGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -738,7 +739,7 @@ app.use('/applyRoom', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -795,7 +796,7 @@ app.use('/getSchedule', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -835,7 +836,7 @@ app.use('/addGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -870,7 +871,7 @@ app.use('/getRooms', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -900,7 +901,7 @@ app.use('/getUserRoomApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -926,7 +927,7 @@ app.use('/getUserGoodsApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -953,7 +954,7 @@ app.use('/getGoodsApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -979,7 +980,7 @@ app.use('/getRoomApplication', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -1003,7 +1004,7 @@ app.use('/getCourses', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -1032,7 +1033,7 @@ app.use('/getGoods', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -1059,7 +1060,7 @@ app.use('/listTeam', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -1087,7 +1088,7 @@ app.use('/addUser', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
@@ -1139,7 +1140,7 @@ app.use('/getUser', (request, response, next) => {
       var connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '83508089l',
+            password: '*********',
             port: '3306',
             database: 'Project'
       });
